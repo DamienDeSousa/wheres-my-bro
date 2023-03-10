@@ -1,12 +1,13 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
-import { Card, CardBody, Center, Container, Wrap, Box, WrapItem, Button } from '@chakra-ui/react'
-
-const inter = Inter({ subsets: ['latin'] })
+import { Card, CardBody, Container, Wrap, WrapItem, Button } from '@chakra-ui/react'
+import { signOut, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 export default function Home() {
+  const { data: session } = useSession()
+  const router = useRouter()
+
   // fond beige, texte noir, titre jaune / rouge / orange,
   return (
     <>
@@ -40,15 +41,15 @@ export default function Home() {
             <WrapItem>
               <Card maxW="300px" h="300px">
                 <CardBody>
-                  <h2>L'apéro du vendredi soir approche et votre volonté est sur le point de faillir ?</h2>
+                  <h2>Le week end approche et votre volonté est sur le point de faillir ?</h2>
                   <p>Grâce à votre BRO, vous ne perdrez plus de vue vos objectifs.</p>
                 </CardBody>
               </Card>
             </WrapItem>
           </Wrap>
-          <p>Inscrivez-vous dès à présent et devenez plus fort que votre plus forte excuse.</p>
-          <Button>S'inscrire</Button>
-          <Button>Se connecter</Button>
+          <p>Connectez-vous dès à présent et devenez plus fort que votre plus forte excuse.</p>
+          <Button onClick={() => router.push('/auth/signin')}>Se connecter</Button>
+          {session && <Button onClick={async () => await signOut({ callbackUrl: '/' })}>Sign out</Button>}
           Dernières annonces:
         </Container>
       </div>
