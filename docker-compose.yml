@@ -1,0 +1,11 @@
+version: '3.1'
+
+services:
+  sw-mongo:
+    image: mongo:5.0.6
+    restart: always
+    container_name: wmb-mongo
+    ports:
+      - '27017:27017'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
