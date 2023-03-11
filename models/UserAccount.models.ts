@@ -14,4 +14,6 @@ const userAccountSchema: Schema = new Schema<IUserAccount>(
   { collection: 'UserAccount' },
 )
 
-export const UserAccount = mongoose.model('UserAccount', userAccountSchema)
+export const UserAccount = mongoose.model('UserAccount')
+  ? mongoose.model('UserAccount')
+  : mongoose.model('UserAccount', userAccountSchema)

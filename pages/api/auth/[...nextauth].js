@@ -2,7 +2,7 @@ import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import clientPromise from '../../../services/db.auth'
-import { UserAccount, IUserAccount } from '../../../models/UserAccount.models'
+import { UserAccount } from '../../../models/UserAccount.models'
 
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),

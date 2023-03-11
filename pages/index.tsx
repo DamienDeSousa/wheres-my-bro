@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import { signOut, useSession } from 'next-auth/react'
 import { Presentation } from '@/components/Presentation'
+import { fetcher } from '@/services/fetcher'
 
 export default function Home() {
   const { data: session } = useSession()
-
+  const { userAccount, error } = useSWR('/api/userAccount', fetcher)
   // fond beige, texte noir, titre jaune / rouge / orange,
   return (
     <>
@@ -18,10 +19,16 @@ export default function Home() {
         style={{
           minHeight: '100vh',
           display: 'flex',
-          ...(session && { alignItems: 'center' }),
+          ...(!session && { alignItems: 'center' }),
         }}
       >
-        {session ? <button onClick={() => signOut()}>Sign out</button> : <Presentation />}
+        {session ? (
+          <div>
+            <button onClick={() => signOut()}>Sign out</button>
+          </div>
+        ) : (
+          <Presentation />
+        )}
       </div>
     </>
   )
