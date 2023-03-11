@@ -3,17 +3,16 @@ import mongoose, { Schema } from 'mongoose'
 export interface IUserAccount {
   _id?: string
   isFirstConnexion: boolean
-  userId: string
+  email: string
 }
 
 const userAccountSchema: Schema = new Schema<IUserAccount>(
   {
     isFirstConnexion: { type: Boolean, default: true, required: true },
-    userId: { type: String, required: true },
+    email: { type: String, required: true },
   },
-  { collection: 'UserAccount' },
+  { collection: 'UserAccounts' },
 )
 
-export const UserAccount = mongoose.model('UserAccount')
-  ? mongoose.model('UserAccount')
-  : mongoose.model('UserAccount', userAccountSchema)
+export const UserAccount = mongoose.models.UserAccount || mongoose.model<IUserAccount>('UserAccount', userAccountSchema)
+// export const UserAccount = mongoose.model<IUserAccount>('UserAccount', userAccountSchema)

@@ -2,10 +2,13 @@ import Head from 'next/head'
 import { signOut, useSession } from 'next-auth/react'
 import { Presentation } from '@/components/Presentation'
 import { fetcher } from '@/services/fetcher'
+import useSWR from 'swr'
 
 export default function Home() {
   const { data: session } = useSession()
-  const { userAccount, error } = useSWR('/api/userAccount', fetcher)
+  const { data, error } = useSWR('/api/userAccount', fetcher)
+
+  console.log(data)
   // fond beige, texte noir, titre jaune / rouge / orange,
   return (
     <>
