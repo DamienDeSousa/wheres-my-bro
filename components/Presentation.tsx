@@ -1,7 +1,7 @@
 import { Button, Card, CardBody, Container, Wrap, WrapItem } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-export const Presentation: React.FC = (props: any) => {
+export const Presentation: React.FC = () => {
   const router = useRouter()
 
   return (

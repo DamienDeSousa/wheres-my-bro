@@ -24,9 +24,7 @@ export const authOptions = {
           email: user.email,
         })
         await newUserAccount.save()
-        console.log('EEEEEEEEE')
       }
-      console.log('help me')
       return true
     },
   },

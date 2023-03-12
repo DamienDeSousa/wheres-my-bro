@@ -3,6 +3,7 @@ import { signOut, useSession } from 'next-auth/react'
 import { Presentation } from '@/components/Presentation'
 import { fetcher } from '@/services/fetcher'
 import useSWR from 'swr'
+import { FirstConnexion } from '@/components/FirstConnexion'
 
 export default function Home() {
   const { data: session } = useSession()
@@ -26,9 +27,16 @@ export default function Home() {
         }}
       >
         {session ? (
-          <div>
-            <button onClick={() => signOut()}>Sign out</button>
-          </div>
+          data?.isFirstConnexion ? (
+            <div>
+              <button onClick={() => signOut()}>Sign out</button>
+              <FirstConnexion />
+            </div>
+          ) : (
+            <div>
+              <button onClick={() => signOut()}>Sign out</button>
+            </div>
+          )
         ) : (
           <Presentation />
         )}
