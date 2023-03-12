@@ -23,8 +23,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   })
 
   const emails = matchedUserAccounts.map(matchedUserAccount => matchedUserAccount.email)
-  console.log('matchedUserAccounts = ', matchedUserAccounts)
-  console.log('emails = ', emails)
   const matchedBros: IBro[] = await Bro.find({
     email: { $in: emails },
   })
