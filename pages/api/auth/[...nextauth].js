@@ -23,7 +23,9 @@ export const authOptions = {
         const newUserAccount = new UserAccount({
           email: user.email,
         })
+        console.log('newUserAccount = ', newUserAccount)
         await newUserAccount.save()
+        console.log('kenobi')
       }
       return true
     },

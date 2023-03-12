@@ -1,23 +1,27 @@
 import { Button, Input } from '@chakra-ui/react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { TownInput } from './inputs/TownInput'
 
 export const FirstConnexion: React.FC = (props: any) => {
   const [town, setTown] = useState<string>('')
   const [availabilities, setAvailabilities] = useState<string[]>([])
+  const router = useRouter()
+  const { data: session } = useSession()
 
   const sendProfile = async () => {
     try {
-      const response = await fetch('votre_url_api', {
+      const response = await fetch('/api/userAccount/' + session?.user?.email, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ town, availabilities }),
       })
-      if (response.status === 201) {
+      if (response.status === 200) {
         // Redirection vers la page de succès si la réponse est 201
-        window.location.href = '/success'
+        router.push('/')
       } else {
         console.error("Erreur lors de l'envoi des données à l'API")
       }

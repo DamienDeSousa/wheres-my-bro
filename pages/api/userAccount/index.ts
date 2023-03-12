@@ -4,7 +4,6 @@ import { UserAccount, IUserAccount } from '@/models/UserAccount.models'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req })
-  console.log(session)
 
   if (!session) {
     res.status(401).json({ error: 'Unauthorized' })
@@ -19,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
 
-  const userAccount: IUserAccount = await UserAccount.findOne({ email })
+  const userAccount: IUserAccount | null = await UserAccount.findOne({ email })
 
   if (!userAccount) {
     res.status(404).json({ error: 'User account not found' })
