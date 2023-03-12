@@ -4,6 +4,7 @@ import { Presentation } from '@/components/Presentation'
 import { fetcher } from '@/services/fetcher'
 import useSWR from 'swr'
 import { FirstConnexion } from '@/components/FirstConnexion'
+import { AvailableBros } from '@/components/AvailableBros'
 
 export default function Home() {
   const { data: session } = useSession()
@@ -35,6 +36,7 @@ export default function Home() {
           ) : (
             <div>
               <button onClick={() => signOut()}>Sign out</button>
+              <AvailableBros />
             </div>
           )
         ) : (

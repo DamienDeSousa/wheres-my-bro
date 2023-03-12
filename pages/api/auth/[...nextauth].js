@@ -4,6 +4,7 @@ import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import clientPromise from '../../../services/db.auth'
 import { UserAccount } from '../../../models/UserAccount.models'
 import connectDB from '../../../services/db'
+
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
@@ -23,9 +24,7 @@ export const authOptions = {
         const newUserAccount = new UserAccount({
           email: user.email,
         })
-        console.log('newUserAccount = ', newUserAccount)
         await newUserAccount.save()
-        console.log('kenobi')
       }
       return true
     },

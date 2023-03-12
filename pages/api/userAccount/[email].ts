@@ -13,12 +13,8 @@ type EmailParamBody = {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log('hello there')
   const { email } = req.query as EmailParamQuery
   const { town, availabilities } = req.body as EmailParamBody
-  console.log('email = ', email)
-  console.log('town = ', town)
-  console.log('availabiolities = ', availabilities)
   const session = await getSession({ req })
 
   if (session?.user?.email !== email) {
