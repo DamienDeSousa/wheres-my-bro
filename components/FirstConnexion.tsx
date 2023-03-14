@@ -20,8 +20,9 @@ export const FirstConnexion: React.FC = (props: any) => {
         body: JSON.stringify({ town, availabilities }),
       })
       if (response.status === 200) {
-        // Redirection vers la page de succès si la réponse est 201
-        router.push('/')
+        // We are already on /, so we just reload page
+        console.log('Redirect to /')
+        router.reload()
       } else {
         console.error("Erreur lors de l'envoi des données à l'API")
       }

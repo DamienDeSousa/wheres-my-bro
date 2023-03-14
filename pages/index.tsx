@@ -10,7 +10,6 @@ export default function Home() {
   const { data: session } = useSession()
   const { data, error } = useSWR('/api/userAccount', fetcher)
 
-  console.log(data)
   // fond beige, texte noir, titre jaune / rouge / orange,
   return (
     <>
