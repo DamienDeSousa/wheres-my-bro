@@ -1,16 +1,32 @@
-import { IBro } from '@/models/User.models'
-import { fetcher } from '@/services/fetcher'
-import { useSession } from 'next-auth/react'
-import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from 'react'
-import useSWR from 'swr'
+import { authOptions } from '@/lib/authOptions.lib'
+import { Bro, IBro } from '@/models/User.models'
+import { IUserAccount, UserAccount } from '@/models/UserAccount.models'
+import connectDB from '@/services/db'
+import { getServerSession } from 'next-auth'
 
-export const AvailableBros = () => {
-  const { data: session } = useSession()
-  const { data: bros = [], error } = useSWR('/api/availableBros/' + session?.user?.email, fetcher)
+export const AvailableBros = async () => {
+  const session = await getServerSession(authOptions)
+  await connectDB()
+  const userAccount: IUserAccount | null = await UserAccount.findOne({ email: session?.user?.email })
+
+  if (!userAccount) {
+    // ERROR
+  }
+
+  const matchedUserAccounts: IUserAccount[] = await UserAccount.find({
+    town: userAccount?.town,
+    availabilities: { $in: userAccount?.availabilities },
+    email: { $ne: userAccount?.email },
+  })
+
+  const emails = matchedUserAccounts.map(matchedUserAccount => matchedUserAccount.email)
+  const matchedBros: IBro[] = await Bro.find({
+    email: { $in: emails },
+  })
 
   return (
     <>
-      {bros.map((bro: IBro) => (
+      {matchedBros.map((bro: IBro) => (
         <div>{bro.email}</div>
       ))}
     </>
