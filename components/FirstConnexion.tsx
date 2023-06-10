@@ -1,4 +1,3 @@
-import { Button, Input } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -34,14 +33,8 @@ export const FirstConnexion: React.FC = (props: any) => {
   return (
     <>
       <TownInput setTown={setTown} />
-      <Input
-        size="lg"
-        type="datetime-local"
-        onChange={event => setAvailabilities([...availabilities, event.target.value])}
-      />
-      <Button colorScheme="green" onClick={sendProfile}>
-        Trouver mon BRO
-      </Button>
+      <input type="datetime-local" onChange={event => setAvailabilities([...availabilities, event.target.value])} />
+      <button onClick={sendProfile}>Trouver mon BRO</button>
     </>
   )
 }
