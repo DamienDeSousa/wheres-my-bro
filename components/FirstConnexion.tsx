@@ -1,7 +1,7 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { TownInput } from './inputs/TownInput'
 
@@ -13,12 +13,13 @@ export const FirstConnexion: React.FC = (props: any) => {
 
   if (!session) {
     // il faut rediriger
+    return null
   }
 
   const sendProfile = async () => {
     try {
       // créer cette route
-      const response = await fetch('/api/userAccount/', {
+      const response = await fetch('/api/user-account/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +29,8 @@ export const FirstConnexion: React.FC = (props: any) => {
       if (response.status === 200) {
         // We are already on /, so we just reload page
         console.log('Redirect to /')
-        router.reload()
+        router.push('/')
+        // router.refresh()
       } else {
         console.error("Erreur lors de l'envoi des données à l'API")
       }
