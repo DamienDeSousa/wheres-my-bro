@@ -11,9 +11,14 @@ export const FirstConnexion: React.FC = (props: any) => {
   const router = useRouter()
   const { data: session } = useSession()
 
+  if (!session) {
+    // il faut rediriger
+  }
+
   const sendProfile = async () => {
     try {
-      const response = await fetch('/api/userAccount/' + session?.user?.email, {
+      // créer cette route
+      const response = await fetch('/api/userAccount/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
