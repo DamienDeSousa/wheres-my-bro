@@ -1,28 +1,21 @@
-import { signOut, useSession } from 'next-auth/react'
 import { Presentation } from '@/components/Presentation'
 import { FirstConnexion } from '@/components/FirstConnexion'
 import { AvailableBros } from '@/components/AvailableBros'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/authOptions.lib'
-import connectDB from '@/services/db'
-import { IUserAccount, UserAccount } from '@/models/UserAccount.models'
 import { SignOutButton } from '@/components/buttons/SignOutButton'
+import { getLoggedUserAccount } from '@/services/modelHandlers/userAccount.modelhandler'
 
 export default async function Page() {
-  const session = await getServerSession(authOptions)
-  await connectDB()
-  const userAccount: IUserAccount | null = session ? await UserAccount.findOne({ email: session?.user?.email }) : null
-
+  const userAccount = await getLoggedUserAccount()
   return (
     <>
       <div
         style={{
           minHeight: '100vh',
           display: 'flex',
-          ...(!session && { alignItems: 'center' }),
+          ...(!userAccount && { alignItems: 'center' }),
         }}
       >
-        {session ? (
+        {userAccount ? (
           userAccount?.isFirstConnexion ? (
             <div>
               <SignOutButton />
