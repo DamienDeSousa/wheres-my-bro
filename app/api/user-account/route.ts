@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions.lib'
-import connectDB from '@/services/db'
+import { connectDB } from '@/services/db'
 import { UserAccount } from '@/models/UserAccount.models'
 
 export async function POST(request: Request) {

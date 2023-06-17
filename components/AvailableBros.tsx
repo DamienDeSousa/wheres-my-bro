@@ -1,13 +1,9 @@
-import { authOptions } from '@/lib/authOptions.lib'
 import { Bro, IBro } from '@/models/User.models'
 import { IUserAccount, UserAccount } from '@/models/UserAccount.models'
-import connectDB from '@/services/db'
-import { getServerSession } from 'next-auth'
+import { getLoggedUserAccount } from '@/services/modelHandlers/userAccount.modelhandler'
 
 export const AvailableBros = async () => {
-  const session = await getServerSession(authOptions)
-  await connectDB()
-  const userAccount: IUserAccount | null = await UserAccount.findOne({ email: session?.user?.email })
+  const userAccount = await getLoggedUserAccount()
 
   if (!userAccount) {
     // ERROR
