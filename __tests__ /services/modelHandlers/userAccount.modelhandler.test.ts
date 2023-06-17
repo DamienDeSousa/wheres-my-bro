@@ -6,6 +6,13 @@ import { IUserAccount } from './../../../models/UserAccount.models'
 import { getLoggedUserAccount } from '@/services/modelHandlers/userAccount.modelhandler'
 import { getServerSession } from 'next-auth'
 
+jest.mock('@/lib/authOptions.lib', () => {
+  return {
+    __esModule: true,
+    authOptions: {},
+  }
+})
+
 jest.mock('next-auth', () => {
   return {
     __esModule: true,
