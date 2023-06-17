@@ -27,7 +27,7 @@ export const AvailableBros = async () => {
   return (
     <>
       {matchedBros.map((bro: IBro) => (
-        <div>{bro.email}</div>
+        <div key={bro.email}>{bro.email}</div>
       ))}
     </>
   )

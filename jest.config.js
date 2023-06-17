@@ -15,4 +15,4 @@ const customJestConfig = {
 }
 // https://github.com/vercel/next.js/issues/47448
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-https: module.exports = createJestConfig(customJestConfig)
+module.exports = createJestConfig(customJestConfig)

@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 import { User } from 'next-auth'
 
-export interface IBro extends User {}
+export type IBro = User
 
 const userSchema: Schema = new Schema<User>(
   {
@@ -11,4 +11,4 @@ const userSchema: Schema = new Schema<User>(
   },
   { collection: 'users' },
 )
-export const Bro = mongoose.models.Bro || mongoose.model<User>('Bro', userSchema)
+export const Bro = mongoose.models.Bro || mongoose.model<IBro>('Bro', userSchema)
