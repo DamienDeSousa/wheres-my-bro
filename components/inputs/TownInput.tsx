@@ -7,7 +7,7 @@ interface ITownProps {
 export const TownInput = (props: ITownProps) => {
   return (
     <>
-      <input placeholder="Paris" onChange={event => props.setTown(event.target.value)} />
+      <input placeholder="Paris" onChange={event => props.setTown(event.target.value)} data-testid="town" />
     </>
   )
 }

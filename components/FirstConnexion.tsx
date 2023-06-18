@@ -18,7 +18,6 @@ export const FirstConnexion: React.FC = () => {
 
   const sendProfile = async () => {
     try {
-      // créer cette route
       const response = await fetch('/api/user-account/', {
         method: 'PATCH',
         headers: {
@@ -26,14 +25,11 @@ export const FirstConnexion: React.FC = () => {
         },
         body: JSON.stringify({ town, availabilities, isFirstConnexion: false }),
       })
-      if (response.status === 200) {
-        // We are already on /, so we just reload page
-        console.log('Redirect to /')
-        router.push('/')
-        // router.refresh()
-      } else {
-        console.error("Erreur lors de l'envoi des données à l'API")
+      console.log(response)
+      if (response.status !== 200) {
+        return
       }
+      router.push('/')
     } catch (error) {
       console.error(error)
     }
@@ -42,7 +38,11 @@ export const FirstConnexion: React.FC = () => {
   return (
     <>
       <TownInput setTown={setTown} />
-      <input type="datetime-local" onChange={event => setAvailabilities([...availabilities, event.target.value])} />
+      <input
+        type="datetime-local"
+        onChange={event => setAvailabilities([...availabilities, event.target.value])}
+        data-testid="availability"
+      />
       <button onClick={sendProfile}>Trouver mon BRO</button>
     </>
   )
