@@ -20,11 +20,11 @@ export const FirstConnexion: React.FC = () => {
     try {
       // créer cette route
       const response = await fetch('/api/user-account/', {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ town, availabilities }),
+        body: JSON.stringify({ town, availabilities, isFirstConnexion: false }),
       })
       if (response.status === 200) {
         // We are already on /, so we just reload page
