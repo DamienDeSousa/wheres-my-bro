@@ -5,6 +5,8 @@
 import { IUserAccount } from './../../../models/UserAccount.models'
 import { getLoggedUserAccount } from '@/services/modelHandlers/userAccount.modelhandler'
 import { getServerSession } from 'next-auth'
+import { mockUserAccount } from '@/mocks/userAccount.mock'
+import { mockUserSession } from '@/mocks/user.mock'
 
 jest.mock('@/lib/authOptions.lib', () => {
   return {
@@ -29,13 +31,7 @@ jest.mock('@/services/db', () => {
   }
 })
 
-const mockedUser: IUserAccount = {
-  _id: undefined,
-  isFirstConnexion: true,
-  email: 'test@test.com',
-  town: 'city',
-  availabilities: [Date()],
-}
+const mockedUser = mockUserAccount()
 
 jest.mock('@/models/UserAccount.models', () => {
   const actualModule = jest.requireActual('@/models/UserAccount.models')
@@ -50,29 +46,17 @@ jest.mock('@/models/UserAccount.models', () => {
 
 describe('=== getLoggedUserAccount ===', () => {
   it('should return the logged user acount', async () => {
-    getServerSession as jest.Mock
-    const mockedUserSession = {
-      user: {
-        name: 'Test',
-        email: 'test@test.com',
-        image: null,
-      },
-    }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    getServerSession.mockImplementation(() => Promise.resolve(mockedUserSession))
+    const mockedUserSession = mockUserSession()
+    ;(getServerSession as jest.Mock).mockImplementation(() => Promise.resolve(mockedUserSession))
     const userAccount = await getLoggedUserAccount()
     expect(userAccount).toEqual(mockedUser)
   })
 
   it('should return null because no user is logged', async () => {
-    getServerSession as jest.Mock
     const mockedUserSession = {
       user: undefined,
     }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    getServerSession.mockImplementation(() => Promise.resolve(mockedUserSession))
+    ;(getServerSession as jest.Mock).mockImplementation(() => Promise.resolve(mockedUserSession))
     const userAccount = await getLoggedUserAccount()
     expect(userAccount).toEqual(mockedUser)
   })

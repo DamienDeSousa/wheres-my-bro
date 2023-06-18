@@ -3,27 +3,29 @@ import { authOptions } from '@/lib/authOptions.lib'
 import { connectDB } from '@/services/db'
 import { UserAccount } from '@/models/UserAccount.models'
 
-export async function POST(request: Request) {
+interface IUserAccountRequestParams {
+  town?: string
+  availabilities?: Array<string>
+  isFirstConnexion?: boolean
+}
+
+export async function PATCH(request: Request) {
   const session = await getServerSession(authOptions)
 
-  if (!session) {
-    // erreur
+  if (!session?.user) {
+    return new Response('', { status: 401 })
   }
-  const res = await request.json()
-  const { town, availabilities } = res
+
+  const res = (await request.json()) as IUserAccountRequestParams
   await connectDB()
-  await UserAccount.updateOne(
+  const updatedUserAccount = await UserAccount.findOneAndUpdate(
     { email: session?.user?.email },
     {
-      town,
-      availabilities,
-      isFirstConnexion: false,
+      ...res,
     },
+    { new: true },
   )
-  // extract town and availabilities
-  // update user account with these data and set isFirstConnection false
-  // Do whatever you want
-  return new Response('Hello World!', {
+  return new Response(JSON.stringify(updatedUserAccount), {
     status: 200,
   })
 }
