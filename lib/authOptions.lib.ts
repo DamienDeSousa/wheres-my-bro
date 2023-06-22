@@ -1,5 +1,5 @@
 import { UserAccount } from '@/models/UserAccount.models'
-import connectDB from '@/services/db'
+import { connectDB } from '@/services/db'
 import clientPromise from '@/services/db.auth'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import { NextAuthOptions } from 'next-auth'

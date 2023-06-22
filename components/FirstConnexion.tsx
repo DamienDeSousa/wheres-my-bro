@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { TownInput } from './inputs/TownInput'
 
-export const FirstConnexion: React.FC = (props: any) => {
+export const FirstConnexion: React.FC = () => {
   const [town, setTown] = useState<string>('')
   const [availabilities, setAvailabilities] = useState<string[]>([])
   const router = useRouter()
@@ -18,22 +18,18 @@ export const FirstConnexion: React.FC = (props: any) => {
 
   const sendProfile = async () => {
     try {
-      // créer cette route
       const response = await fetch('/api/user-account/', {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ town, availabilities }),
+        body: JSON.stringify({ town, availabilities, isFirstConnexion: false }),
       })
-      if (response.status === 200) {
-        // We are already on /, so we just reload page
-        console.log('Redirect to /')
-        router.push('/')
-        // router.refresh()
-      } else {
-        console.error("Erreur lors de l'envoi des données à l'API")
+      console.log(response)
+      if (response.status !== 200) {
+        return
       }
+      router.push('/')
     } catch (error) {
       console.error(error)
     }
@@ -42,7 +38,11 @@ export const FirstConnexion: React.FC = (props: any) => {
   return (
     <>
       <TownInput setTown={setTown} />
-      <input type="datetime-local" onChange={event => setAvailabilities([...availabilities, event.target.value])} />
+      <input
+        type="datetime-local"
+        onChange={event => setAvailabilities([...availabilities, event.target.value])}
+        data-testid="availability"
+      />
       <button onClick={sendProfile}>Trouver mon BRO</button>
     </>
   )
