@@ -1,11 +1,11 @@
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions.lib'
 import { connectDB } from '@/services/db'
-import { UserAccount } from '@/models/UserAccount.models'
+import { IAvailabilities, UserAccount } from '@/models/UserAccount.models'
 
 interface IUserAccountRequestParams {
   town?: string
-  availabilities?: Array<string>
+  availabilities?: IAvailabilities
   isFirstConnexion?: boolean
 }
 

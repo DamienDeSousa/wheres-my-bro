@@ -7,7 +7,10 @@ export function mockUserAccount(): IUserAccount {
     isFirstConnexion: false,
     email: 'test@test.com',
     town: 'city',
-    availabilities: [Date()],
+    availabilities: {
+      start: '1995-12-17T02:24:00.000Z',
+      end: '1995-12-17T04:30:00.000Z',
+    },
   }
   return merge(mockedUser)
 }

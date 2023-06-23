@@ -1,13 +1,14 @@
 'use client'
 
+import { IAvailabilities } from '@/models/UserAccount.models'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { TownInput } from './inputs/TownInput'
 
 export const FirstConnexion: React.FC = () => {
-  const [town, setTown] = useState<string>('')
-  const [availabilities, setAvailabilities] = useState<string[]>([])
+  const [town, setTown] = useState<string | undefined>()
+  const [availabilities, setAvailabilities] = useState<IAvailabilities | object>()
   const router = useRouter()
   const { data: session } = useSession()
 
@@ -40,8 +41,13 @@ export const FirstConnexion: React.FC = () => {
       <TownInput setTown={setTown} />
       <input
         type="datetime-local"
-        onChange={event => setAvailabilities([...availabilities, event.target.value])}
-        data-testid="availability"
+        onChange={event => setAvailabilities({ ...availabilities, start: event.target.value })}
+        data-testid="availability-start"
+      />
+      <input
+        type="datetime-local"
+        onChange={event => setAvailabilities({ ...availabilities, end: event.target.value })}
+        data-testid="availability-end"
       />
       <button onClick={sendProfile}>Trouver mon BRO</button>
     </>
