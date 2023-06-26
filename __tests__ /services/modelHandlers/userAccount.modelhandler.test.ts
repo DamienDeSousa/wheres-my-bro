@@ -3,7 +3,7 @@
  */
 
 import { IUserAccount } from './../../../models/UserAccount.models'
-import { getLoggedUserAccount } from '@/services/modelHandlers/userAccount.modelhandler'
+import { getLoggedUserAccount, partialUserAccountUpdate } from '@/services/modelHandlers/userAccount.modelhandler'
 import { getServerSession } from 'next-auth'
 import { mockUserAccount } from '@/mocks/userAccount.mock'
 import { mockUserSession } from '@/mocks/user.mock'
@@ -40,6 +40,9 @@ jest.mock('@/models/UserAccount.models', () => {
     __esModule: true,
     UserAccount: {
       findOne: jest.fn().mockImplementation(() => Promise.resolve<IUserAccount>(mockedUser)),
+      findOneAndUpdate: jest
+        .fn()
+        .mockImplementation(() => Promise.resolve<IUserAccount>({ ...mockedUser, town: 'Paris' })),
     },
   }
 })
@@ -59,5 +62,20 @@ describe('=== getLoggedUserAccount ===', () => {
     ;(getServerSession as jest.Mock).mockImplementation(() => Promise.resolve(mockedUserSession))
     const userAccount = await getLoggedUserAccount()
     expect(userAccount).toEqual(mockedUser)
+  })
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+})
+
+describe('=== partialUserAccountUpdate ===', () => {
+  it('should return the newly patched user', async () => {
+    const patchedUser = await partialUserAccountUpdate(mockedUser.email, { town: 'Paris' })
+    expect(patchedUser.town).toBe('Paris')
+  })
+
+  beforeEach(() => {
+    jest.clearAllMocks()
   })
 })

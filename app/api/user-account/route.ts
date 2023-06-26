@@ -6,12 +6,12 @@ import { partialUserAccountUpdate } from '@/services/modelHandlers/userAccount.m
 export async function PATCH(request: Request) {
   const session = await getServerSession(authOptions)
 
-  if (!session?.user) {
+  if (!session?.user?.email) {
     return new Response('', { status: 401 })
   }
 
   const res = (await request.json()) as IUserAccountRequestParams
-  const updatedUserAccount = partialUserAccountUpdate(session?.user?.email!, res)
+  const updatedUserAccount = await partialUserAccountUpdate(session?.user?.email as string, res)
   return new Response(JSON.stringify(updatedUserAccount), {
     status: 200,
   })

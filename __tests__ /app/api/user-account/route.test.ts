@@ -7,6 +7,7 @@ import { mockRequest } from '@/mocks/http.mock'
 import { mockUserSession } from '@/mocks/user.mock'
 import { mockUserAccount } from '@/mocks/userAccount.mock'
 import { IUserAccount } from '@/models/UserAccount.models'
+import { partialUserAccountUpdate } from '@/services/modelHandlers/userAccount.modelhandler'
 import { getServerSession } from 'next-auth'
 
 jest.mock('@/lib/authOptions.lib', () => {
@@ -45,22 +46,41 @@ jest.mock('@/models/UserAccount.models', () => {
   }
 })
 
+jest.mock('@/services/modelHandlers/userAccount.modelhandler', () => {
+  const actualModule = jest.requireActual('@/services/modelHandlers/userAccount.modelhandler')
+  return {
+    ...actualModule,
+    __esModule: true,
+    partialUserAccountUpdate: jest.fn(),
+  }
+})
+
 describe('=== PATCH ===', () => {
   it('should update a new user account', async () => {
     const mockedUserSession = mockUserSession()
     ;(getServerSession as jest.Mock).mockImplementation(() => Promise.resolve(mockedUserSession))
+    ;(partialUserAccountUpdate as jest.Mock).mockImplementation(() =>
+      Promise.resolve({
+        ...mockedUser,
+        town: 'Paris',
+        isFirstConnexion: true,
+      }),
+    )
     const request = mockRequest({
       json: () =>
         Promise.resolve<object>({
           town: 'Paris',
-          availabilities: [new Date()],
           isFirstConnexion: true,
         }),
     })
     const response = await PATCH(request)
     expect(response.status).toBe(200)
     const res = await response.json()
-    expect(res).toEqual({ ...mockedUser, isFirstConnexion: false })
+    expect(res).toEqual({
+      ...mockedUser,
+      town: 'Paris',
+      isFirstConnexion: true,
+    })
   })
 
   it('should return 401 because no user logged', async () => {
@@ -68,5 +88,9 @@ describe('=== PATCH ===', () => {
     const request = mockRequest()
     const response = await PATCH(request)
     expect(response.status).toBe(401)
+  })
+
+  beforeEach(() => {
+    jest.clearAllMocks()
   })
 })
