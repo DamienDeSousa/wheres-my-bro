@@ -1,4 +1,4 @@
-import { UserAccount } from '@/models/UserAccount.models'
+import { IUserAccount, UserAccount } from '@/models/UserAccount.models'
 import { connectDB } from '@/services/db'
 import clientPromise from '@/services/db.auth'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
@@ -20,10 +20,11 @@ export const authOptions: NextAuthOptions = {
       await connectDB()
       const userAccount = await UserAccount.findOne({ email: user?.email })
       if (!userAccount) {
-        // insert en base
-        const newUserAccount = new UserAccount({
-          email: user.email,
-        })
+        const dataToInsert: IUserAccount = {
+          isFirstConnexion: true,
+          email: user.email!,
+        }
+        const newUserAccount = new UserAccount(dataToInsert)
         await newUserAccount.save()
       }
       return true

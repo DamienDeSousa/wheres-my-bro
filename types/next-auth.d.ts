@@ -6,15 +6,15 @@ declare module 'next-auth/jwt' {
   interface JWT {
     picture?: string | null
     sub?: string
-    id: string
+    id?: string
     email: string
     name: string
     image: string
-    isFirstConnexion: boolean
-    town: string
-    availabilities: IAvailabilities
-    sport: string
-    level: string
+    isFirstConnexion?: boolean
+    town?: string
+    availabilities?: IAvailabilities
+    sport?: string
+    level?: string
     description?: string
   }
 }
@@ -25,15 +25,15 @@ declare module 'next-auth' {
    */
   interface Session {
     user: {
-      id: string
+      id?: string
       email: string
       name: string
       image: string
-      isFirstConnexion: boolean
-      town: string
-      availabilities: IAvailabilities
-      sport: string
-      level: string
+      isFirstConnexion?: boolean
+      town?: string
+      availabilities?: IAvailabilities
+      sport?: string
+      level?: string
       description?: string
     }
   }

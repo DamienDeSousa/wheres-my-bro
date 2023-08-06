@@ -9,10 +9,10 @@ export interface IUserAccount {
   _id?: string
   isFirstConnexion: boolean
   email: string
-  town: string
-  availabilities: IAvailabilities
-  sport: string
-  level: string
+  town?: string
+  availabilities?: IAvailabilities
+  sport?: string
+  level?: string
   description?: string
 }
 
@@ -25,10 +25,10 @@ const userAccountSchema: Schema = new Schema<IUserAccount>(
   {
     isFirstConnexion: { type: Boolean, default: true, required: true },
     email: { type: String, required: true },
-    town: { type: String, default: '' },
-    availabilities: { type: availabilitiesSchema, required: true },
-    sport: { type: String, required: true },
-    level: { type: String, required: true },
+    town: { type: String, required: false },
+    availabilities: { type: availabilitiesSchema, required: false },
+    sport: { type: String, required: false },
+    level: { type: String, required: false },
     description: { type: String, required: false },
   },
   { collection: 'UserAccounts' },
