@@ -1,7 +1,6 @@
-import type { Metadata } from 'next'
 import { NextAuthProvider } from '@/app/providers'
-
-// These styles apply to every route in the application
+import type { Metadata } from 'next'
+import { openSans } from './fonts'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={openSans.className}>
       <body>
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>
