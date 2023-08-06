@@ -16,7 +16,7 @@ export const authOptions: NextAuthOptions = {
   session: { strategy: 'jwt' },
   callbacks: {
     // more information on params https://next-auth.js.org/configuration/callbacks#sign-in-callback
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user }) {
       await connectDB()
       const userAccount = await UserAccount.findOne({ email: user?.email })
       if (!userAccount) {
@@ -27,6 +27,19 @@ export const authOptions: NextAuthOptions = {
         await newUserAccount.save()
       }
       return true
+    },
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === 'update') {
+        return {
+          ...token,
+          ...session.user,
+        }
+      }
+
+      return token
+    },
+    async session({ session, token }) {
+      return session
     },
   },
 }

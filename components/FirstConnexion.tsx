@@ -8,6 +8,9 @@ import { TownInput } from './inputs/TownInput'
 
 export const FirstConnexion: React.FC = () => {
   const [town, setTown] = useState<string | undefined>()
+  const [sport, setSport] = useState<string | undefined>()
+  const [level, setLevel] = useState<string | undefined>()
+  const [description, setDescription] = useState<string | undefined>()
   const [availabilities, setAvailabilities] = useState<IAvailabilities | object>()
   const router = useRouter()
   const { data: session } = useSession()
@@ -24,9 +27,9 @@ export const FirstConnexion: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ town, availabilities, isFirstConnexion: false }),
+        body: JSON.stringify({ town, availabilities, isFirstConnexion: false, sport, level, description }),
       })
-      console.log(response)
+
       if (response.status !== 200) {
         return
       }
@@ -49,6 +52,9 @@ export const FirstConnexion: React.FC = () => {
         onChange={event => setAvailabilities({ ...availabilities, end: event.target.value })}
         data-testid="availability-end"
       />
+      <input placeholder="sport" onChange={event => setSport(event.target.value)} />
+      <input placeholder="level" onChange={event => setLevel(event.target.value)} />
+      <input placeholder="description" onChange={event => setDescription(event.target.value)} />
       <button onClick={sendProfile}>Trouver mon BRO</button>
     </>
   )

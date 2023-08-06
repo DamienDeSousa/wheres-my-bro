@@ -11,9 +11,11 @@ export const AvailableBros = async () => {
 
   const matchedUserAccounts: IUserAccount[] = await UserAccount.find({
     town: userAccount?.town,
-    'availabilities.start': { $gte: userAccount.availabilities.start },
-    'availabilities.end': { $lte: userAccount.availabilities.end },
+    'availabilities.start': { $lte: userAccount.availabilities.start },
+    'availabilities.end': { $gte: userAccount.availabilities.end },
     email: { $ne: userAccount?.email },
+    level: userAccount.level,
+    sport: userAccount.sport,
   })
 
   return (

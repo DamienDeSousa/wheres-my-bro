@@ -11,6 +11,9 @@ export interface IUserAccount {
   email: string
   town: string
   availabilities: IAvailabilities
+  sport: string
+  level: string
+  description?: string
 }
 
 const availabilitiesSchema: Schema = new Schema<IAvailabilities>({
@@ -24,6 +27,9 @@ const userAccountSchema: Schema = new Schema<IUserAccount>(
     email: { type: String, required: true },
     town: { type: String, default: '' },
     availabilities: { type: availabilitiesSchema, required: true },
+    sport: { type: String, required: true },
+    level: { type: String, required: true },
+    description: { type: String, required: false },
   },
   { collection: 'UserAccounts' },
 )
