@@ -1,7 +1,7 @@
-import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions.lib'
+import { UserAccount } from '@/models/UserAccount.models'
 import { IUserAccountRequestParams } from '@/services/interfaces/userAccount.interfaces'
-import { partialUserAccountUpdate } from '@/services/modelHandlers/userAccount.modelhandler'
+import { getServerSession } from 'next-auth'
 
 export async function PATCH(request: Request) {
   const session = await getServerSession(authOptions)
@@ -11,7 +11,7 @@ export async function PATCH(request: Request) {
   }
 
   const res = (await request.json()) as IUserAccountRequestParams
-  const updatedUserAccount = await partialUserAccountUpdate(session?.user?.email as string, res)
+  const updatedUserAccount = await UserAccount.findOneAndUpdate({ _id: session?.user?.id }, { ...res }, { new: true })
   return new Response(JSON.stringify(updatedUserAccount), {
     status: 200,
   })
