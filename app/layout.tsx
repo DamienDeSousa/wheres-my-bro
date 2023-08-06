@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={openSans.className}>
+    <html lang="fr" className={openSans.className}>
       <body>
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>

@@ -1,22 +1,24 @@
-import { Presentation } from '@/components/Presentation'
-import { FirstConnexion } from '@/components/FirstConnexion'
 import { AvailableBros } from '@/components/AvailableBros'
 import { SignOutButton } from '@/components/buttons/SignOutButton'
-import { getLoggedUserAccount } from '@/services/modelHandlers/userAccount.modelhandler'
+import { FirstConnexion } from '@/components/FirstConnexion'
+import { Presentation } from '@/components/Presentation'
+import { authOptions } from '@/lib/authOptions.lib'
+import { getServerSession } from 'next-auth'
 
 export default async function Page() {
-  const userAccount = await getLoggedUserAccount()
+  const session = await getServerSession(authOptions)
+
   return (
     <>
       <div
         style={{
           minHeight: '100vh',
           display: 'flex',
-          ...(!userAccount && { alignItems: 'center' }),
+          ...(!session?.user && { alignItems: 'center' }),
         }}
       >
-        {userAccount ? (
-          userAccount?.isFirstConnexion ? (
+        {session?.user ? (
+          session?.user?.isFirstConnexion ? (
             <div>
               <SignOutButton />
               <FirstConnexion />

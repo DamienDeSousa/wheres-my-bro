@@ -28,7 +28,8 @@ export const authOptions: NextAuthOptions = {
       }
       return true
     },
-    async jwt({ token, user, trigger, session }) {
+    async jwt({ token, trigger, session, user }) {
+      await connectDB()
       if (trigger === 'update') {
         return {
           ...token,
@@ -36,9 +37,30 @@ export const authOptions: NextAuthOptions = {
         }
       }
 
+      if (user) {
+        const userAccount = await UserAccount.findOne({ email: user.email })
+
+        if (userAccount) {
+          token.id = userAccount._id.toString()
+          token.isFirstConnexion = userAccount.isFirstConnexion
+          token.town = userAccount.town
+          token.availabilities = userAccount.availabilities
+          token.sport = userAccount.sport
+          token.level = userAccount.level
+          token.description = userAccount.description
+        }
+      }
+
       return token
     },
     async session({ session, token }) {
+      session.user.id = token.id
+      session.user.isFirstConnexion = token.isFirstConnexion
+      session.user.town = token.town
+      session.user.availabilities = token.availabilities
+      session.user.sport = token.sport
+      session.user.level = token.level
+      session.user.description = token.description
       return session
     },
   },

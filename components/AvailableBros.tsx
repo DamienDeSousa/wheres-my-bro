@@ -1,21 +1,21 @@
+import { authOptions } from '@/lib/authOptions.lib'
 import { IUserAccount, UserAccount } from '@/models/UserAccount.models'
-import { getLoggedUserAccount } from '@/services/modelHandlers/userAccount.modelhandler'
+import { getServerSession } from 'next-auth'
 
 export const AvailableBros = async () => {
-  const userAccount = await getLoggedUserAccount()
+  const session = await getServerSession(authOptions)
 
-  if (!userAccount) {
-    // ERROR
+  if (!session) {
     return null
   }
 
   const matchedUserAccounts: IUserAccount[] = await UserAccount.find({
-    town: userAccount?.town,
-    'availabilities.start': { $lte: userAccount.availabilities.start },
-    'availabilities.end': { $gte: userAccount.availabilities.end },
-    email: { $ne: userAccount?.email },
-    level: userAccount.level,
-    sport: userAccount.sport,
+    town: session.user.town,
+    'availabilities.start': { $lte: session.user.availabilities.start },
+    'availabilities.end': { $gte: session.user.availabilities.end },
+    email: { $ne: session.user.email },
+    level: session.user.level,
+    sport: session.user.sport,
   })
 
   return (
