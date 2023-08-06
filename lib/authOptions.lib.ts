@@ -3,7 +3,22 @@ import { connectDB } from '@/services/db'
 import clientPromise from '@/services/db.auth'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import { NextAuthOptions } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 import GoogleProvider from 'next-auth/providers/google'
+
+const setupToken = async (email: string, token: JWT) => {
+  const userAccount = await UserAccount.findOne({ email })
+
+  if (userAccount) {
+    token.id = userAccount._id.toString()
+    token.isFirstConnexion = userAccount.isFirstConnexion
+    token.town = userAccount.town
+    token.availabilities = userAccount.availabilities
+    token.sport = userAccount.sport
+    token.level = userAccount.level
+    token.description = userAccount.description
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -29,27 +44,14 @@ export const authOptions: NextAuthOptions = {
       }
       return true
     },
-    async jwt({ token, trigger, session, user }) {
+    async jwt({ token, trigger, user, session }) {
       await connectDB()
       if (trigger === 'update') {
-        return {
-          ...token,
-          ...session.user,
-        }
+        await setupToken(session.user.email!, token)
       }
 
       if (user) {
-        const userAccount = await UserAccount.findOne({ email: user.email })
-
-        if (userAccount) {
-          token.id = userAccount._id.toString()
-          token.isFirstConnexion = userAccount.isFirstConnexion
-          token.town = userAccount.town
-          token.availabilities = userAccount.availabilities
-          token.sport = userAccount.sport
-          token.level = userAccount.level
-          token.description = userAccount.description
-        }
+        await setupToken(user.email!, token)
       }
 
       return token

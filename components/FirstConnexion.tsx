@@ -13,7 +13,7 @@ export const FirstConnexion: React.FC = () => {
   const [description, setDescription] = useState<string | undefined>()
   const [availabilities, setAvailabilities] = useState<IAvailabilities | object>()
   const router = useRouter()
-  const { data: session } = useSession()
+  const { data: session, update } = useSession()
 
   if (!session) {
     // il faut rediriger
@@ -33,6 +33,18 @@ export const FirstConnexion: React.FC = () => {
       if (response.status !== 200) {
         return
       }
+      await update({
+        ...session,
+        user: {
+          ...session?.user,
+          town,
+          availabilities,
+          isFirstConnexion: false,
+          sport,
+          level,
+          description,
+        },
+      })
       router.push('/')
     } catch (error) {
       console.error(error)
