@@ -11,6 +11,8 @@ export function mockUserAccount(): IUserAccount {
       start: '1995-12-17T02:24:00.000Z',
       end: '1995-12-17T04:30:00.000Z',
     },
+    level: 'intermediate',
+    sport: 'musculation',
   }
   return merge(mockedUser)
 }
