@@ -1,4 +1,4 @@
-import { AvailableBros } from '@/components/AvailableBros'
+import { AvailableTeammates } from '@/components/AvailableTeammates'
 import { SignOutButton } from '@/components/buttons/SignOutButton'
 import { FirstConnexion } from '@/components/FirstConnexion'
 import { Presentation } from '@/components/Presentation'
@@ -27,7 +27,7 @@ export default async function Page() {
             <div>
               <SignOutButton />
               {/* @ts-expect-error Server Component */}
-              <AvailableBros />
+              <AvailableTeammates />
             </div>
           )
         ) : (
