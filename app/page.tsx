@@ -9,31 +9,23 @@ export default async function Page() {
   const session = await getServerSession(authOptions)
 
   return (
-    <>
-      <div
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          ...(!session?.user && { alignItems: 'center' }),
-        }}
-      >
-        {session?.user ? (
-          session?.user?.isFirstConnexion ? (
-            <div>
-              <SignOutButton />
-              <FirstConnexion />
-            </div>
-          ) : (
-            <div>
-              <SignOutButton />
-              {/* @ts-expect-error Server Component */}
-              <AvailableTeammates />
-            </div>
-          )
+    <div className="min-h-screen flex items-center justify-center">
+      {session?.user ? (
+        session?.user?.isFirstConnexion ? (
+          <div>
+            <SignOutButton />
+            <FirstConnexion />
+          </div>
         ) : (
-          <Presentation />
-        )}
-      </div>
-    </>
+          <div>
+            <SignOutButton />
+            {/* @ts-expect-error Server Component */}
+            <AvailableTeammates />
+          </div>
+        )
+      ) : (
+        <Presentation />
+      )}
+    </div>
   )
 }

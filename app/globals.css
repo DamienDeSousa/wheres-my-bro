@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1 {
+  font-weight: 700;
+  font-size: 1.875rem; /* 30px */
+  line-height: 2.25rem; /* 36px */
+  font-family: var(--font-open-sans);
+  color: #2a2d3e;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem; /* 28px */
+  font-family: var(--font-open-sans);
+  color: #52616f;
+}
+
+body {
+  background-color: #fbefe3;
+  font-size: 1rem; /* 16px */
+  line-height: 1.4rem; /* 24px */
+  font-weight: 500;
+}
+
+button {
+  font-size: 1.25rem; /* 20px */
+}

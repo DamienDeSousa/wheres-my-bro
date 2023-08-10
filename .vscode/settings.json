@@ -1,6 +1,7 @@
 {
   "eslint.alwaysShowStatus": true,
   "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
     "source.fixAll.eslint": true
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
