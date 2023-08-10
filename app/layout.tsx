@@ -23,8 +23,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <h1 className="text-center">Where's my Teammate</h1>
             {session?.user && <SignOutButton />}
           </header>
-          <main className="flex items-center justify-center w-screen">
-            <div className="px-2 pb-4 w-screen">{children}</div>
+          <main className="flex items-center justify-center w-full">
+            <div className="px-2 pb-4 w-full">{children}</div>
           </main>
         </NextAuthProvider>
       </body>
