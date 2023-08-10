@@ -1,6 +1,7 @@
 'use client'
 
 import { formatDateForDatetimeInput } from '@/services/dates/date.formater'
+import { ETeammateLevel } from '@/services/profile/profile.types'
 import { profileValidator } from '@/services/profile/profile.validators'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSession } from 'next-auth/react'
@@ -10,6 +11,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Button } from './inputs/button.components'
 import { Input } from './inputs/input.components'
+import { Select } from './inputs/select.components'
 import { Textarea } from './inputs/textarea.components'
 
 export const FirstConnexion: React.FC = () => {
@@ -107,16 +109,11 @@ export const FirstConnexion: React.FC = () => {
         <Input type="text" placeholder="Tennis" {...register('sport')} formLabel="Sport" error={errors.sport} />
       </div>
       <div>
-        <label htmlFor="level" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-          Niveau
-        </label>
-        <input
-          type="text"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="intermediaire"
-          {...register('level')}
-        />
-        {errors.level && <p className="text-xs italic text-red-500 mt-2"> {errors.level?.message}</p>}
+        <Select formLabel="Niveau" {...register('level')}>
+          <option value={ETeammateLevel.BEGINNER}>Débutant</option>
+          <option value={ETeammateLevel.INTERMEDIATE}>Intermédiaire</option>
+          <option value={ETeammateLevel.ADVANCE}>Avancé</option>
+        </Select>
       </div>
       <div>
         <Textarea
@@ -126,7 +123,6 @@ export const FirstConnexion: React.FC = () => {
           placeholder="Décrivez votre session, par exemple séance de musculation haut du corps..."
         />
       </div>
-
       <Button type="submit">Trouver mon équipier</Button>
     </form>
   )
