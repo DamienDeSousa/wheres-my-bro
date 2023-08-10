@@ -1,6 +1,6 @@
 import { FieldError } from 'react-hook-form'
 
-interface TextareaProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
+interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   formLabel: string
   error?: FieldError
 }

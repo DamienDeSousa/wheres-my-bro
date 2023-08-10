@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { Button } from './inputs/button.components'
 import { Input } from './inputs/input.components'
 import { Textarea } from './inputs/textarea.components'
 
@@ -126,12 +127,7 @@ export const FirstConnexion: React.FC = () => {
         />
       </div>
 
-      <button
-        type="submit"
-        className="text-white bg-[#5DA3E8] hover:bg-[#1C6FC3] rounded-lg px-10 py-3 focus:outline-none w-full"
-      >
-        Trouver mon équipier
-      </button>
+      <Button type="submit">Trouver mon équipier</Button>
     </form>
   )
 }
