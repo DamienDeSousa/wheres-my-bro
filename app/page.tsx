@@ -9,15 +9,15 @@ export default async function Page() {
   const session = await getServerSession(authOptions)
 
   return (
-    <div className="min-h-screen w-screen flex items-center justify-center">
+    <>
       {session?.user ? (
         session?.user?.isFirstConnexion ? (
-          <div className="px-2 w-screen">
+          <div className="flex flex-col gap-5">
             <SignOutButton />
             <FirstConnexion />
           </div>
         ) : (
-          <div>
+          <div className="flex flex-col gap-5">
             <SignOutButton />
             {/* @ts-expect-error Server Component */}
             <AvailableTeammates />
@@ -26,6 +26,6 @@ export default async function Page() {
       ) : (
         <Presentation />
       )}
-    </div>
+    </>
   )
 }

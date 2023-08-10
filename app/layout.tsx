@@ -13,7 +13,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" className={`${openSans.variable}`}>
       <body>
-        <NextAuthProvider>{children}</NextAuthProvider>
+        <NextAuthProvider>
+          <main className="min-h-screen w-screen flex items-center justify-center">
+            <div className="px-2 w-screen">{children}</div>
+          </main>
+        </NextAuthProvider>
       </body>
     </html>
   )
