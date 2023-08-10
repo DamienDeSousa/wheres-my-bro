@@ -22,5 +22,8 @@ export const profileValidator = z.object({
       start: z.coerce.date().min(new Date()),
       end: z.coerce.date(),
     })
-    .refine(data => data.start < data.end, { path: ['end'], message: 'test' }),
+    .refine(data => data.start < data.end, {
+      path: ['end'],
+      message: 'La date doit être ultérieure ou égale à la date de départ',
+    }),
 })

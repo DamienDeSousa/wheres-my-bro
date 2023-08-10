@@ -29,7 +29,6 @@ export const FirstConnexion: React.FC = () => {
   const startDate = watch('availabilities.start')
 
   const formatedStartDate = formatDateForDatetimeInput(new Date())
-  console.log(startDate)
   const formatedEndDate = formatDateForDatetimeInput(new Date(startDate) || new Date())
 
   if (!session) {
