@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { Input } from './inputs/input.components'
+import { Textarea } from './inputs/textarea.components'
 
 export const FirstConnexion: React.FC = () => {
   const router = useRouter()
@@ -71,16 +73,7 @@ export const FirstConnexion: React.FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <div>
-        <label htmlFor="town" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-          Ville
-        </label>
-        <input
-          type="text"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Paris"
-          {...register('town')}
-        />
-        {errors.town && <p className="text-xs italic text-red-500 mt-2"> {errors.town?.message}</p>}
+        <Input type="text" formLabel="Ville" {...register('town')} placeholder="Paris" error={errors.town} />
       </div>
       <div>
         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Créneau de disponibilité</label>
@@ -109,20 +102,9 @@ export const FirstConnexion: React.FC = () => {
           </div>
         </div>
       </div>
-
       <div>
-        <label htmlFor="sport" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-          Sport
-        </label>
-        <input
-          type="text"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Tennis"
-          {...register('sport')}
-        />
-        {errors.sport && <p className="text-xs italic text-red-500 mt-2"> {errors.sport.message}</p>}
+        <Input type="text" placeholder="Tennis" {...register('sport')} formLabel="Sport" error={errors.sport} />
       </div>
-
       <div>
         <label htmlFor="level" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
           Niveau
@@ -135,19 +117,13 @@ export const FirstConnexion: React.FC = () => {
         />
         {errors.level && <p className="text-xs italic text-red-500 mt-2"> {errors.level?.message}</p>}
       </div>
-
       <div>
-        <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-          Description
-        </label>
-        <textarea
-          id="message"
-          rows={4}
-          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Décrivez votre session, par exemple séance de musculation haut du corps..."
+        <Textarea
+          error={errors.description}
           {...register('description')}
-        ></textarea>
-        {errors.description && <p className="text-xs italic text-red-500 mt-2"> {errors.description?.message}</p>}
+          formLabel="Description"
+          placeholder="Décrivez votre session, par exemple séance de musculation haut du corps..."
+        />
       </div>
 
       <button
