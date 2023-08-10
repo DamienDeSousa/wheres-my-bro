@@ -7,22 +7,10 @@ import { getServerSession } from 'next-auth'
 export default async function Page() {
   const session = await getServerSession(authOptions)
 
-  return (
-    <>
-      {session?.user ? (
-        session?.user?.isFirstConnexion ? (
-          <div className="flex flex-col gap-5">
-            <FirstConnexion />
-          </div>
-        ) : (
-          <div className="flex flex-col gap-5">
-            {/* @ts-expect-error Server Component */}
-            <AvailableTeammates />
-          </div>
-        )
-      ) : (
-        <Presentation />
-      )}
-    </>
-  )
+  if (!session?.user) {
+    return <Presentation />
+  }
+
+  // @ts-expect-error Server Component
+  return <>{session?.user?.isFirstConnexion ? <FirstConnexion /> : <AvailableTeammates />}</>
 }
