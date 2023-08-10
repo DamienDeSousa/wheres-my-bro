@@ -1,3 +1,4 @@
+import { IAvailabilities } from '@/models/UserAccount.models'
 import 'next-auth'
 import 'next-auth/jwt'
 
