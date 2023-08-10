@@ -32,7 +32,6 @@ export const Presentation: React.FC = () => {
       >
         Se connecter
       </button>
-      Dernières annonces:
     </div>
   )
 }

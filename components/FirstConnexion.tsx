@@ -1,5 +1,6 @@
 'use client'
 
+import { formatDateForDatetimeInput } from '@/services/dates/date.formater'
 import { profileValidator } from '@/services/profile/profile.validators'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSession } from 'next-auth/react'
@@ -13,15 +14,23 @@ export const FirstConnexion: React.FC = () => {
   const { data: session, update } = useSession()
 
   type ValidatorSchemaType = z.infer<typeof profileValidator>
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<ValidatorSchemaType>({
     resolver: zodResolver(profileValidator),
     mode: 'onBlur',
     reValidateMode: 'onChange',
   })
+
+  const startDate = watch('availabilities.start')
+
+  const formatedStartDate = formatDateForDatetimeInput(new Date())
+  console.log(startDate)
+  const formatedEndDate = formatDateForDatetimeInput(new Date(startDate) || new Date())
 
   if (!session) {
     // il faut rediriger
@@ -80,6 +89,7 @@ export const FirstConnexion: React.FC = () => {
           <div className="flex flex-col w-1/2">
             <input
               type="datetime-local"
+              min={formatedStartDate}
               {...register('availabilities.start')}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
@@ -90,6 +100,7 @@ export const FirstConnexion: React.FC = () => {
           <div className="flex flex-col w-1/2">
             <input
               type="datetime-local"
+              min={formatedEndDate}
               {...register('availabilities.end')}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
