@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 const SignInPage = () => {
   return (
-    <div className="flex h-screen items-center justify-center p-2">
+    <div className="flex items-center justify-center p-2">
       <button
         onClick={() => signIn('google', { callbackUrl: '/' })}
         className="w-full py-3 border flex items-center justify-center gap-2 border-slate-200 rounded-lg hover:border-slate-400 hover:shadow transition duration-150 bg-white"

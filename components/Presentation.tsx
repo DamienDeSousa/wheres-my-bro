@@ -7,7 +7,6 @@ export const Presentation: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center gap-14 p-2">
-      <h1 className="text-center">Where's my teammate</h1>
       <h2 className="text-center">Trouvez un équipier en quelques clics et commencez une activité sportive</h2>
       <div className="flex flex-col items-center gap-5">
         <div className="max-w-sm p-6 bg-white rounded-lg">
