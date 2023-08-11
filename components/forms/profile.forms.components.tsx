@@ -83,6 +83,9 @@ export const ProfileForm = (params: IProfileForm) => {
           placeholder="Décrivez votre session, par exemple séance de musculation haut du corps..."
         />
       </div>
+      <div>
+        <Input type="text" formLabel="Contact" placeholder="" {...register('contact')} error={errors.contact} />
+      </div>
       <Button type="submit">Trouver mon équipier</Button>
     </form>
   )

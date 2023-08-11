@@ -18,13 +18,13 @@ export const FirstConnexion: React.FC = () => {
 
   const onSubmit: SubmitHandler<ValidatorSchemaType> = async data => {
     try {
-      const { town, availabilities, sport, level, description } = data
+      const { town, availabilities, sport, level, description, contact } = data
       const response = await fetch('/api/user-account/', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ town, availabilities, isFirstConnexion: false, sport, level, description }),
+        body: JSON.stringify({ town, availabilities, isFirstConnexion: false, sport, level, description, contact }),
       })
 
       if (response.status !== 200) {
@@ -40,6 +40,7 @@ export const FirstConnexion: React.FC = () => {
           sport,
           level,
           description,
+          contact,
         },
       })
       router.push('/')

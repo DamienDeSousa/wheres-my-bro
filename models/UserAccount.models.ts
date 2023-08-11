@@ -14,6 +14,7 @@ export interface IUserAccount {
   sport?: string
   level?: string
   description?: string
+  contact?: string
 }
 
 const availabilitiesSchema: Schema = new Schema<IAvailabilities>({
@@ -30,6 +31,7 @@ const userAccountSchema: Schema = new Schema<IUserAccount>(
     sport: { type: String, required: false },
     level: { type: String, required: false },
     description: { type: String, required: false },
+    contact: { type: String, required: false },
   },
   { collection: 'UserAccounts' },
 )

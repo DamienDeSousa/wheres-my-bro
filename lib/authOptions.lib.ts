@@ -17,6 +17,7 @@ const setupToken = async (email: string, token: JWT) => {
     token.sport = userAccount.sport
     token.level = userAccount.level
     token.description = userAccount.description
+    token.contact = userAccount.contact
   }
 }
 
@@ -64,6 +65,8 @@ export const authOptions: NextAuthOptions = {
       session.user.sport = token.sport
       session.user.level = token.level
       session.user.description = token.description
+      session.user.contact = token.contact
+
       return session
     },
   },

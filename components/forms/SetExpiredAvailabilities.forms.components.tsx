@@ -21,17 +21,18 @@ export const SetExpiredAvailabilities = () => {
     sport: session.user.sport!,
     level: session.user.level!,
     description: session.user.description!,
+    contact: session.user.contact!,
   }
 
   const onSubmit: SubmitHandler<ValidatorSchemaType> = async data => {
     try {
-      const { town, availabilities, sport, level, description } = data
+      const { town, availabilities, sport, level, description, contact } = data
       const response = await fetch('/api/user-account/', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ town, availabilities, sport, level, description }),
+        body: JSON.stringify({ town, availabilities, sport, level, description, contact }),
       })
 
       if (response.status !== 200) {
@@ -46,6 +47,7 @@ export const SetExpiredAvailabilities = () => {
           sport,
           level,
           description,
+          contact,
         },
       })
       router.push('/')

@@ -18,6 +18,7 @@ declare module 'next-auth/jwt' {
     sport?: string
     level?: ETeammateLevel
     description?: string
+    contact?: string
   }
 }
 
@@ -37,6 +38,7 @@ declare module 'next-auth' {
       sport?: string
       level?: ETeammateLevel
       description?: string
+      contact?: string
     }
   }
 }

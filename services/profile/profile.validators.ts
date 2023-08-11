@@ -2,6 +2,11 @@ import i18next from 'i18next'
 import { z } from 'zod'
 import { zodI18nMap } from 'zod-i18n-map'
 import translation from 'zod-i18n-map/locales/fr/zod.json'
+import {
+  isFacebookProfileLink,
+  isInstagramProfileLink,
+  isTwitterProfileLink,
+} from '../socialMedias/socialMedias.validators'
 import { ETeammateLevel } from './profile.types'
 
 i18next.init({
@@ -25,6 +30,11 @@ export const profileValidator = z.object({
     .refine(data => data.start < data.end, {
       path: ['end'],
       message: 'La date doit être ultérieure ou égale à la date de départ',
+    }),
+  contact: z
+    .string()
+    .refine(data => isFacebookProfileLink(data) || isInstagramProfileLink(data) || isTwitterProfileLink(data), {
+      message: "Le lien renseigné n'est ni un lien Facebook, ni Instagram, ni Twitter",
     }),
 })
 
