@@ -27,3 +27,5 @@ export const profileValidator = z.object({
       message: 'La date doit être ultérieure ou égale à la date de départ',
     }),
 })
+
+export type ValidatorSchemaType = z.infer<typeof profileValidator>

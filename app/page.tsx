@@ -1,5 +1,6 @@
 import { AvailableTeammates } from '@/components/AvailableTeammates'
-import { FirstConnexion } from '@/components/FirstConnexion'
+import { FirstConnexion } from '@/components/forms/FirstConnexion.forms.components'
+import { SetExpiredAvailabilities } from '@/components/forms/SetExpiredAvailabilities.forms.components'
 import { Presentation } from '@/components/Presentation'
 import { authOptions } from '@/lib/authOptions.lib'
 import { isTimeSlotExpired } from '@/services/dates/date.commons'
@@ -19,7 +20,7 @@ export default async function Page() {
       start: new Date(session.user.availabilities!.start),
       end: new Date(session.user.availabilities!.end),
     }):
-      return <FirstConnexion />
+      return <SetExpiredAvailabilities />
     default:
       // @ts-expect-error Server Component
       return <AvailableTeammates />

@@ -1,24 +1,20 @@
-'use client'
-
 import { formatDateForDatetimeInput } from '@/services/dates/date.formater'
 import { ETeammateLevel } from '@/services/profile/profile.types'
-import { profileValidator } from '@/services/profile/profile.validators'
+import { profileValidator, ValidatorSchemaType } from '@/services/profile/profile.validators'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { Button } from './inputs/button.components'
-import { Input } from './inputs/input.components'
-import { Select } from './inputs/select.components'
-import { Textarea } from './inputs/textarea.components'
+import { DefaultValues, SubmitHandler, useForm } from 'react-hook-form'
+import { Button } from '../inputs/button.components'
+import { Input } from '../inputs/input.components'
+import { Select } from '../inputs/select.components'
+import { Textarea } from '../inputs/textarea.components'
 
-export const FirstConnexion: React.FC = () => {
-  const router = useRouter()
-  const { data: session, update } = useSession()
+interface IProfileForm {
+  onSubmit: SubmitHandler<ValidatorSchemaType>
+  defaultValues?: DefaultValues<ValidatorSchemaType>
+}
 
-  type ValidatorSchemaType = z.infer<typeof profileValidator>
+export const ProfileForm = (params: IProfileForm) => {
+  const { onSubmit, defaultValues } = params
 
   const {
     register,
@@ -29,49 +25,13 @@ export const FirstConnexion: React.FC = () => {
     resolver: zodResolver(profileValidator),
     mode: 'onBlur',
     reValidateMode: 'onChange',
+    defaultValues: defaultValues,
   })
 
   const startDate = watch('availabilities.start')
 
   const formatedStartDate = formatDateForDatetimeInput(new Date())
   const formatedEndDate = formatDateForDatetimeInput(new Date(startDate) || new Date())
-
-  if (!session) {
-    // il faut rediriger
-    return null
-  }
-
-  const onSubmit: SubmitHandler<ValidatorSchemaType> = async data => {
-    try {
-      const { town, availabilities, sport, level, description } = data
-      const response = await fetch('/api/user-account/', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ town, availabilities, isFirstConnexion: false, sport, level, description }),
-      })
-
-      if (response.status !== 200) {
-        return
-      }
-      await update({
-        ...session,
-        user: {
-          ...session?.user,
-          town,
-          availabilities,
-          isFirstConnexion: false,
-          sport,
-          level,
-          description,
-        },
-      })
-      router.push('/')
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
