@@ -32,7 +32,7 @@ export const AvailableTeammates = async () => {
       {matchedUserAccounts.map((bro: IUserAccount) => (
         <Card
           key={bro._id}
-          title="trouver qqchose à mettre ici"
+          title={bro.name}
           content={
             <div className="flex flex-col gap-1">
               <div className="flex flex-col">

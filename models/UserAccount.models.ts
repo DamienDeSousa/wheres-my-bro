@@ -15,6 +15,8 @@ export interface IUserAccount {
   level?: string
   description?: string
   contact?: string
+  name: string
+  image: string
 }
 
 const availabilitiesSchema: Schema = new Schema<IAvailabilities>({
@@ -32,6 +34,8 @@ const userAccountSchema: Schema = new Schema<IUserAccount>(
     level: { type: String, required: false },
     description: { type: String, required: false },
     contact: { type: String, required: false },
+    name: { type: String, required: true },
+    image: { type: String, required: true },
   },
   { collection: 'UserAccounts' },
 )

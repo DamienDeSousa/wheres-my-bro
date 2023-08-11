@@ -12,7 +12,7 @@ export const Card = (params: ICard) => {
     <div className="max-w-sm p-6 bg-white rounded-lg border-gray-300 shadow">
       {image}
       {title && <h2 className="mb-2 tracking-tight">{title}</h2>}
-      {text && <p>{text}</p>}
+      {text && <div>{text}</div>}
     </div>
   )
 }

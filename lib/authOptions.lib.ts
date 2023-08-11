@@ -18,6 +18,8 @@ const setupToken = async (email: string, token: JWT) => {
     token.level = userAccount.level
     token.description = userAccount.description
     token.contact = userAccount.contact
+    token.name = userAccount.name
+    token.image = userAccount.image
   }
 }
 
@@ -39,6 +41,8 @@ export const authOptions: NextAuthOptions = {
         const dataToInsert: IUserAccount = {
           isFirstConnexion: true,
           email: user.email!,
+          name: user.name!,
+          image: user.image!,
         }
         const newUserAccount = new UserAccount(dataToInsert)
         await newUserAccount.save()
@@ -66,6 +70,8 @@ export const authOptions: NextAuthOptions = {
       session.user.level = token.level
       session.user.description = token.description
       session.user.contact = token.contact
+      session.user.name = token.name
+      session.user.image = token.image
 
       return session
     },
