@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { Card } from './cards/card.components'
+import { Button } from './inputs/button.components'
 
 export const Presentation: React.FC = () => {
   const router = useRouter()
@@ -24,12 +25,7 @@ export const Presentation: React.FC = () => {
         />
       </div>
       <h2 className="text-center">Connectez-vous dès à présent et devenez plus fort que votre plus forte excuse.</h2>
-      <button
-        onClick={() => router.push('/auth/signin')}
-        className="text-white bg-[#5DA3E8] hover:bg-[#1C6FC3] rounded-lg px-10 py-3 focus:outline-none w-full"
-      >
-        Se connecter
-      </button>
+      <Button onClick={() => router.push('/auth/signin')}>Se connecter</Button>
     </div>
   )
 }

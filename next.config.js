@@ -10,6 +10,9 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  images: {
+    domains: ['lh3.googleusercontent.com', 'platform-lookaside.fbsbx.com'],
+  },
 }
 
 module.exports = nextConfig

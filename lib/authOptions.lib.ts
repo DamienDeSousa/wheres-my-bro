@@ -4,6 +4,7 @@ import clientPromise from '@/services/db.auth'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import { NextAuthOptions } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
+import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 
 const setupToken = async (email: string, token: JWT) => {
@@ -29,6 +30,10 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID!,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
     }),
   ],
   session: { strategy: 'jwt' },

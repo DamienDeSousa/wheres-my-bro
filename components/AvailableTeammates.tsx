@@ -1,6 +1,7 @@
 import { authOptions } from '@/lib/authOptions.lib'
 import { IUserAccount, UserAccount } from '@/models/UserAccount.models'
 import { getServerSession } from 'next-auth'
+import { SocialBroIcon } from './bros/icons/icons.social.bros'
 import { Card } from './cards/card.components'
 
 export const AvailableTeammates = async () => {
@@ -47,9 +48,16 @@ export const AvailableTeammates = async () => {
                   ).toLocaleString()}`}
                 </span>
               </div>
-              <div>{bro.contact}</div>
+              <div className="flex gap-2 items-center">
+                <span className="block font-semibold text-[#52616f]">Contact : </span>
+                <a href={bro.contact} target="_blank" className="block">
+                  <SocialBroIcon link={bro.contact!} />
+                </a>
+              </div>
             </div>
           }
+          image={bro.image}
+          alt={bro.image}
         />
       ))}
     </div>
