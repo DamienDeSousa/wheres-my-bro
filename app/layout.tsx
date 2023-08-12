@@ -1,8 +1,6 @@
 import { NextAuthProvider } from '@/app/providers'
-import { SignOutButton } from '@/components/buttons/SignOutButton'
-import { authOptions } from '@/lib/authOptions.lib'
+import { Menu } from '@/components/menus/menu.components'
 import type { Metadata } from 'next'
-import { getServerSession } from 'next-auth'
 import { openSans } from './fonts'
 import './globals.css'
 
@@ -13,15 +11,13 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const session = await getServerSession(authOptions)
-
   return (
     <html lang="fr" className={`${openSans.variable}`}>
       <body className="min-h-screen w-screen">
         <NextAuthProvider>
           <header className="mb-14 px-2 flex flex-col gap-3">
             <h1 className="text-center">Where's my Teammate</h1>
-            {session?.user && <SignOutButton />}
+            <Menu />
           </header>
           <main className="flex items-center justify-center w-full">
             <div className="px-2 pb-4 w-full">{children}</div>
