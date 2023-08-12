@@ -6,7 +6,7 @@ export enum EButtonVariation {
 }
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: string
+  variant?: EButtonVariation
 }
 
 const getClassFromVariant = (variant: EButtonVariation): string => {
@@ -20,7 +20,7 @@ const getClassFromVariant = (variant: EButtonVariation): string => {
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ children, ...props }, ref) => {
-  const { variant } = props
+  const { variant = EButtonVariation.DEFAULT } = props
 
   return (
     <button className={getClassFromVariant(variant)} {...props} ref={ref}>
