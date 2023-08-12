@@ -3,14 +3,19 @@
 import { EditProfile } from '@/components/forms/EditProfile.forms.components'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
-export default function Page() {
+const Page = () => {
   const { data: session } = useSession()
   const router = useRouter()
 
-  if (!session?.user) {
-    router.push('/')
-  }
+  useEffect(() => {
+    if (!session?.user) {
+      router.push('/')
+    }
+  }, [session, router])
 
   return <EditProfile />
 }
+
+export default Page
