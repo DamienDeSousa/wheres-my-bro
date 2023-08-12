@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import i18next from 'i18next'
 import { z } from 'zod'
 import { zodI18nMap } from 'zod-i18n-map'
@@ -24,10 +25,13 @@ export const profileValidator = z.object({
   description: z.string().min(1),
   availabilities: z
     .object({
-      start: z.coerce.date().min(new Date()),
-      end: z.coerce.date(),
+      start: z.coerce
+        .date()
+        .min(new Date())
+        .transform(date => format(date, "yyyy-MM-dd'T'HH:mm:ss")),
+      end: z.coerce.date().transform(date => format(date, "yyyy-MM-dd'T'HH:mm")),
     })
-    .refine(data => data.start < data.end, {
+    .refine(data => new Date(data.start) < new Date(data.end), {
       path: ['end'],
       message: 'La date doit être ultérieure ou égale à la date de départ',
     }),

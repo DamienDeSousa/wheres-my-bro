@@ -22,8 +22,7 @@ export const EditProfile = () => {
     description: session.user.description!,
     contact: session.user.contact!,
     availabilities: {
-      start: new Date(session.user.availabilities!.start),
-      end: new Date(session.user.availabilities!.end),
+      ...session.user.availabilities,
     },
   }
 

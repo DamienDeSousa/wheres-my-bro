@@ -16,6 +16,8 @@ interface IProfileForm {
 export const ProfileForm = (params: IProfileForm) => {
   const { onSubmit, defaultValues } = params
 
+  console.log(defaultValues)
+
   const {
     register,
     handleSubmit,
@@ -39,7 +41,7 @@ export const ProfileForm = (params: IProfileForm) => {
         <Input type="text" formLabel="Ville" {...register('town')} placeholder="Paris" error={errors.town} />
       </div>
       <div>
-        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Créneau de disponibilité</label>
+        <label className="block mb-2 text-sm font-medium text-gray-900">Créneau de disponibilité</label>
         <div className="flex">
           <div className="flex flex-col w-1/2">
             <input
@@ -47,11 +49,6 @@ export const ProfileForm = (params: IProfileForm) => {
               min={formatedStartDate}
               {...register('availabilities.start')}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 "
-              value={
-                defaultValues?.availabilities?.start
-                  ? formatDateForDatetimeInput(defaultValues?.availabilities?.start)
-                  : undefined
-              }
             />
             {errors.availabilities?.start && (
               <p className="text-xs italic text-red-500 mt-2"> {errors.availabilities?.start.message}</p>
@@ -63,11 +60,6 @@ export const ProfileForm = (params: IProfileForm) => {
               min={formatedEndDate}
               {...register('availabilities.end')}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 "
-              value={
-                defaultValues?.availabilities?.end
-                  ? formatDateForDatetimeInput(defaultValues?.availabilities?.end)
-                  : undefined
-              }
             />
             {errors.availabilities?.end && (
               <p className="text-xs italic text-red-500 mt-2"> {errors.availabilities?.end.message}</p>

@@ -28,6 +28,12 @@ export const AvailableTeammates = async () => {
     sport: session.user.sport,
   })
 
+  if (matchedUserAccounts.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full">Aucun bro n'est disponible avec ces paramètres...</div>
+    )
+  }
+
   return (
     <div className="flex flex-col gap-5">
       {matchedUserAccounts.map((bro: IUserAccount) => (
