@@ -13,17 +13,17 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${openSans.variable}`}>
-      <body className="min-h-screen w-screen">
-        <NextAuthProvider>
-          <header className="mb-14 px-2 flex flex-col gap-3">
+      <NextAuthProvider>
+        <body className="min-h-screen w-screen lg:flex lg:flex-col lg:items-center lg:justify-center">
+          <header className="mb-14 px-2 flex flex-col gap-3 md:px-10">
             <h1 className="text-center">Where's my Teammate</h1>
             <Menu />
           </header>
           <main className="flex items-center justify-center w-full">
-            <div className="px-2 pb-4 w-full">{children}</div>
+            <div className="px-2 pb-4 w-full md:px-10">{children}</div>
           </main>
-        </NextAuthProvider>
-      </body>
+        </body>
+      </NextAuthProvider>
     </html>
   )
 }

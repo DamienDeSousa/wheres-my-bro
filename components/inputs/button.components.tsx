@@ -15,7 +15,7 @@ const getClassFromVariant = (variant: EButtonVariation): string => {
       return 'font-medium text-[#5DA3E8] hover:text-[#1C6FC3] hover:underline'
     case EButtonVariation.DEFAULT:
     default:
-      return 'text-white bg-[#5DA3E8] hover:bg-[#1C6FC3] rounded-lg px-10 py-3 focus:outline-none w-full'
+      return 'text-white bg-[#5DA3E8] hover:bg-[#1C6FC3] rounded-lg px-10 py-3 focus:outline-none w-full md:w-72'
   }
 }
 
