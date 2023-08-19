@@ -1,5 +1,6 @@
 import React from 'react'
 import { FieldError } from 'react-hook-form'
+import { Label } from './label.components'
 
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   formLabel: string
@@ -9,14 +10,10 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ formLabel, error, ...props }, ref) => {
   return (
     <>
-      {formLabel && (
-        <label htmlFor={props.name} className="block mb-2 text-sm font-medium text-gray-900">
-          {formLabel}
-        </label>
-      )}
+      {formLabel && <Label htmlFor={props.name} labelText={formLabel} />}
       <textarea
         rows={4}
-        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
+        className="block p-2.5 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 text-sm lg:text-base lg:p-3"
         placeholder="Décrivez votre session, par exemple séance de musculation haut du corps..."
         {...props}
         ref={ref}

@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { DefaultValues, SubmitHandler, useForm } from 'react-hook-form'
 import { Button } from '../inputs/button.components'
 import { Input } from '../inputs/input.components'
+import { Label } from '../inputs/label.components'
 import { Select } from '../inputs/select.components'
 import { Textarea } from '../inputs/textarea.components'
 
@@ -39,29 +40,23 @@ export const ProfileForm = (params: IProfileForm) => {
         <Input type="text" formLabel="Ville" {...register('town')} placeholder="Paris" error={errors.town} />
       </div>
       <div>
-        <label className="block mb-2 text-sm font-medium text-gray-900">Créneau de disponibilité</label>
-        <div className="flex">
+        <Label labelText="Créneau de disponibilité" />
+        <div className="flex gap-1">
           <div className="flex flex-col w-1/2">
-            <input
+            <Input
               type="datetime-local"
               min={formatedStartDate}
               {...register('availabilities.start')}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 "
+              error={errors.availabilities?.start}
             />
-            {errors.availabilities?.start && (
-              <p className="text-xs italic text-red-500 mt-2"> {errors.availabilities?.start.message}</p>
-            )}
           </div>
           <div className="flex flex-col w-1/2">
-            <input
+            <Input
               type="datetime-local"
               min={formatedEndDate}
               {...register('availabilities.end')}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 "
+              error={errors.availabilities?.end}
             />
-            {errors.availabilities?.end && (
-              <p className="text-xs italic text-red-500 mt-2"> {errors.availabilities?.end.message}</p>
-            )}
           </div>
         </div>
       </div>
