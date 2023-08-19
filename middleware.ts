@@ -16,6 +16,11 @@ export async function middleware(request: NextRequest) {
       url.searchParams.set('callbackUrl', encodeURI(request.url))
       return NextResponse.redirect(url)
     }
+
+    if (token.isFirstConnexion) {
+      const url = new URL('/welcome', request.url)
+      return NextResponse.redirect(url)
+    }
   }
   return res
 }
