@@ -8,7 +8,7 @@ import {
   isInstagramProfileLink,
   isTwitterProfileLink,
 } from '../socialMedias/socialMedias.validators'
-import { ETeammateLevel } from './profile.types'
+import { EBroLevel } from './profile.types'
 
 i18next.init({
   lng: 'es',
@@ -21,7 +21,7 @@ z.setErrorMap(zodI18nMap)
 export const profileValidator = z.object({
   town: z.string().min(1),
   sport: z.string().min(1),
-  level: z.enum([ETeammateLevel.BEGINNER, ETeammateLevel.INTERMEDIATE, ETeammateLevel.ADVANCE]),
+  level: z.enum([EBroLevel.BEGINNER, EBroLevel.INTERMEDIATE, EBroLevel.ADVANCE]),
   description: z.string().min(1),
   availabilities: z
     .object({

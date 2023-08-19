@@ -5,7 +5,7 @@ import { Alert } from './alerts/alert.components'
 import { SocialBroIcon } from './bros/icons/icons.social.bros'
 import { Card } from './cards/card.components'
 
-export const AvailableTeammates = async () => {
+export const AvailableBros = async () => {
   const session = await getServerSession(authOptions)
 
   if (!session?.user?.availabilities) {

@@ -1,4 +1,4 @@
-import { AvailableTeammates } from '@/components/AvailableTeammates'
+import { AvailableBros } from '@/components/AvailableBros'
 import { FirstConnexion } from '@/components/forms/FirstConnexion.forms.components'
 import { SetExpiredAvailabilities } from '@/components/forms/SetExpiredAvailabilities.forms.components'
 import { Presentation } from '@/components/Presentation'
@@ -9,7 +9,7 @@ import { getServerSession } from 'next-auth'
 export default async function Page() {
   const session = await getServerSession(authOptions)
 
-  if (!session?.user) {
+  if (!session?.user?.availabilities) {
     return <Presentation />
   }
 
@@ -17,12 +17,12 @@ export default async function Page() {
     case session?.user?.isFirstConnexion:
       return <FirstConnexion />
     case isTimeSlotExpired({
-      start: new Date(session.user.availabilities!.start),
-      end: new Date(session.user.availabilities!.end),
+      start: new Date(session.user.availabilities.start),
+      end: new Date(session.user.availabilities.end),
     }):
       return <SetExpiredAvailabilities />
     default:
       // @ts-expect-error Server Component
-      return <AvailableTeammates />
+      return <AvailableBros />
   }
 }

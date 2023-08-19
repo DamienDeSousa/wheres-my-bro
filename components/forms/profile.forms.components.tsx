@@ -1,5 +1,5 @@
 import { formatDateForDatetimeInput } from '@/services/dates/date.formater'
-import { ETeammateLevel } from '@/services/profile/profile.types'
+import { EBroLevel } from '@/services/profile/profile.types'
 import { profileValidator, ValidatorSchemaType } from '@/services/profile/profile.validators'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DefaultValues, SubmitHandler, useForm } from 'react-hook-form'
@@ -65,9 +65,9 @@ export const ProfileForm = (params: IProfileForm) => {
       </div>
       <div>
         <Select formLabel="Niveau" {...register('level')}>
-          <option value={ETeammateLevel.BEGINNER}>Débutant</option>
-          <option value={ETeammateLevel.INTERMEDIATE}>Intermédiaire</option>
-          <option value={ETeammateLevel.ADVANCE}>Avancé</option>
+          <option value={EBroLevel.BEGINNER}>Débutant</option>
+          <option value={EBroLevel.INTERMEDIATE}>Intermédiaire</option>
+          <option value={EBroLevel.ADVANCE}>Avancé</option>
         </Select>
       </div>
       <div>

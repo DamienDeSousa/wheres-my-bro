@@ -1,5 +1,5 @@
 import { IAvailabilities } from '@/models/UserAccount.models'
-import { ETeammateLevel } from '@/services/profile/profile.types'
+import { EBroLevel } from '@/services/profile/profile.types'
 import 'next-auth'
 import 'next-auth/jwt'
 
@@ -16,7 +16,7 @@ declare module 'next-auth/jwt' {
     town?: string
     availabilities?: IAvailabilities
     sport?: string
-    level?: ETeammateLevel
+    level?: EBroLevel
     description?: string
     contact?: string
   }
@@ -36,7 +36,7 @@ declare module 'next-auth' {
       town?: string
       availabilities?: IAvailabilities
       sport?: string
-      level?: ETeammateLevel
+      level?: EBroLevel
       description?: string
       contact?: string
     }
