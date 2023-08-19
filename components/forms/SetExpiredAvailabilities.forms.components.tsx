@@ -3,6 +3,7 @@
 import { ValidatorSchemaType } from '@/services/profile/profile.validators'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
 import { DefaultValues, SubmitHandler } from 'react-hook-form'
 import { Alert } from '../alerts/alert.components'
 import { ProfileForm } from './profile.forms.components'
@@ -10,6 +11,9 @@ import { ProfileForm } from './profile.forms.components'
 export const SetExpiredAvailabilities = () => {
   const router = useRouter()
   const { data: session, update } = useSession()
+  // quick win to avoid caching / page,
+  // see https://stackoverflow.com/questions/76395110/next-js-v13-revalidate-not-triggering-after-router-push
+  const [isPending, startTransition] = useTransition()
 
   if (!session?.user) {
     // il faut rediriger
@@ -50,7 +54,8 @@ export const SetExpiredAvailabilities = () => {
           contact,
         },
       })
-      router.push('/')
+      startTransition(() => router.push('/'))
+      startTransition(() => router.refresh())
     } catch (error) {
       console.error(error)
     }
@@ -58,11 +63,17 @@ export const SetExpiredAvailabilities = () => {
 
   return (
     <>
-      <Alert
-        importantText="Vos disponibilités sont périmées !"
-        text="Veuillez en renseigner de nouvelles pour trouver un nouvel équipier"
-      />
-      <ProfileForm onSubmit={onSubmit} defaultValues={defaultValues} />
+      {isPending ? (
+        <div>A la recherche de BROS</div>
+      ) : (
+        <>
+          <Alert
+            importantText="Vos disponibilités sont périmées !"
+            text="Veuillez en renseigner de nouvelles pour trouver un nouvel équipier"
+          />
+          <ProfileForm onSubmit={onSubmit} defaultValues={defaultValues} />
+        </>
+      )}
     </>
   )
 }

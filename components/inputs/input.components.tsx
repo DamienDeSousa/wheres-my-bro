@@ -12,11 +12,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({ formLabel
     <>
       {formLabel && <Label htmlFor={props.name} labelText={formLabel} />}
       <input
-        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 md:text-sm lg:p-3 lg:text-base"
+        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 text-sm lg:p-3 lg:text-base"
         {...props}
         ref={ref}
       />
-      {error && <p className="md:text-xs italic text-red-500 mt-2">{error.message}</p>}
+      {error && <p className="text-xs italic text-red-500 mt-2 lg:text-base">{error.message}</p>}
     </>
   )
 })

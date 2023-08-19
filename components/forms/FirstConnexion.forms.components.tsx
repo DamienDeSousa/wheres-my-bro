@@ -3,13 +3,16 @@
 import { ValidatorSchemaType } from '@/services/profile/profile.validators'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useTransition } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import { ProfileForm } from './profile.forms.components'
 
 export const FirstConnexion: React.FC = () => {
   const router = useRouter()
   const { data: session, update } = useSession()
+  // quick win to avoid caching / page,
+  // see https://stackoverflow.com/questions/76395110/next-js-v13-revalidate-not-triggering-after-router-push
+  const [isPending, startTransition] = useTransition()
 
   if (!session) {
     // il faut rediriger
@@ -43,11 +46,12 @@ export const FirstConnexion: React.FC = () => {
           contact,
         },
       })
-      router.push('/')
+      startTransition(() => router.push('/'))
+      startTransition(() => router.refresh())
     } catch (error) {
       console.error(error)
     }
   }
 
-  return <ProfileForm onSubmit={onSubmit} />
+  return <>{isPending ? <div>A la recherche de BROS</div> : <ProfileForm onSubmit={onSubmit} />}</>
 }

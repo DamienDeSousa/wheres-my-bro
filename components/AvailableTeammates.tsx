@@ -1,25 +1,26 @@
 import { authOptions } from '@/lib/authOptions.lib'
 import { IUserAccount, UserAccount } from '@/models/UserAccount.models'
 import { getServerSession } from 'next-auth'
+import { Alert } from './alerts/alert.components'
 import { SocialBroIcon } from './bros/icons/icons.social.bros'
 import { Card } from './cards/card.components'
 
 export const AvailableTeammates = async () => {
   const session = await getServerSession(authOptions)
 
-  if (!session) {
+  if (!session?.user?.availabilities) {
     return null
   }
 
   const matchedUserAccounts: IUserAccount[] = await UserAccount.find({
     $or: [
       {
-        'availabilities.start': { $lte: session.user.availabilities!.start },
-        'availabilities.end': { $gte: session.user.availabilities!.end },
+        'availabilities.start': { $lte: session.user.availabilities.start },
+        'availabilities.end': { $gte: session.user.availabilities.end },
       },
       {
-        'availabilities.start': { $gte: session.user.availabilities!.start },
-        'availabilities.end': { $lte: session.user.availabilities!.end },
+        'availabilities.start': { $gte: session.user.availabilities.start },
+        'availabilities.end': { $lte: session.user.availabilities.end },
       },
     ],
     town: session.user.town,
@@ -29,13 +30,11 @@ export const AvailableTeammates = async () => {
   })
 
   if (matchedUserAccounts.length === 0) {
-    return (
-      <div className="flex items-center justify-center h-full">Aucun bro n'est disponible avec ces paramètres...</div>
-    )
+    return <Alert importantText="Aucun BRO n'est disponible avec ces paramètres..." />
   }
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {matchedUserAccounts.map((bro: IUserAccount) => (
         <Card
           key={bro._id}
