@@ -3,7 +3,7 @@ interface IIsTimeSlotExpiredParams {
   end: Date
 }
 
-export function isTimeSlotExpired(timeslot: IIsTimeSlotExpiredParams): boolean {
+export function isAvailabilitiesExpired(timeslot: IIsTimeSlotExpiredParams): boolean {
   const { start } = timeslot
   const currentDate = new Date()
   return currentDate > start

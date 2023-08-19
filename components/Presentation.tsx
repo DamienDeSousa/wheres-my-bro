@@ -17,7 +17,7 @@ export const Presentation: React.FC = () => {
         />
         <Card
           title="Vous n'arrivez pas à trouver un BRO aligné avec vos objectifs ?"
-          content="Perte de poids, préparation d'une compétition, Prise de masse, loisir tout simplement... Il y en a pour tous les goûts."
+          content="Perte de poids, préparation d'une compétition, Prise de masse, loisir tout simplement... Il y a forcément un BRO pour vous."
         />
         <Card
           title="Le week end approche et votre volonté est sur le point de faillir ?"
