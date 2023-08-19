@@ -1,5 +1,6 @@
 import React from 'react'
 import { FieldError } from 'react-hook-form'
+import { Error } from './error.components'
 import { Label } from './label.components'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -16,8 +17,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({ formLabel
         {...props}
         ref={ref}
       />
-      {/* TODO: refactor error message */}
-      {error && <p className="text-xs italic text-red-500 mt-2 lg:text-base">{error.message}</p>}
+      {error?.message && <Error message={error.message} />}
     </>
   )
 })

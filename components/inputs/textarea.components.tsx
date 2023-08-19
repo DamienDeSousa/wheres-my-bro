@@ -1,5 +1,6 @@
 import React from 'react'
 import { FieldError } from 'react-hook-form'
+import { Error } from './error.components'
 import { Label } from './label.components'
 
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -18,7 +19,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ 
         {...props}
         ref={ref}
       ></textarea>
-      {error && <p className="text-xs italic text-red-500 mt-2"> {error.message}</p>}
+      {error?.message && <Error message={error.message} />}
     </>
   )
 })
