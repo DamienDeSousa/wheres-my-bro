@@ -82,7 +82,7 @@ export const ProfileForm = (params: IProfileForm) => {
         <Input type="text" formLabel="Contact" placeholder="" {...register('contact')} error={errors.contact} />
       </div>
       <div className="w-full flex justify-center">
-        <Button type="submit">Trouver mon équipier</Button>
+        <Button type="submit">Trouver mon BRO</Button>
       </div>
     </form>
   )

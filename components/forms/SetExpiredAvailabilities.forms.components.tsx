@@ -69,7 +69,7 @@ export const SetExpiredAvailabilities = () => {
         <>
           <Alert
             importantText="Vos disponibilités sont périmées !"
-            text="Veuillez en renseigner de nouvelles pour trouver un nouvel équipier"
+            text="Veuillez en renseigner de nouvelles pour trouver un nouvel BRO"
           />
           <ProfileForm onSubmit={onSubmit} defaultValues={defaultValues} />
         </>
