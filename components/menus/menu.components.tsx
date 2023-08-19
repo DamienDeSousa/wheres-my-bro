@@ -11,7 +11,7 @@ export const Menu = () => {
   return (
     <>
       {session?.user && (
-        <div className="flex gap-2">
+        <div className="flex justify-center gap-2">
           <Button variant={EButtonVariation.LINK} onClick={() => router.push('/profile')}>
             Profil
           </Button>

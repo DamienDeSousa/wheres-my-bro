@@ -16,8 +16,6 @@ interface IProfileForm {
 export const ProfileForm = (params: IProfileForm) => {
   const { onSubmit, defaultValues } = params
 
-  console.log(defaultValues)
-
   const {
     register,
     handleSubmit,
@@ -36,7 +34,7 @@ export const ProfileForm = (params: IProfileForm) => {
   const formatedEndDate = formatDateForDatetimeInput(new Date(startDate) || new Date())
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full">
       <div>
         <Input type="text" formLabel="Ville" {...register('town')} placeholder="Paris" error={errors.town} />
       </div>
@@ -88,7 +86,9 @@ export const ProfileForm = (params: IProfileForm) => {
       <div>
         <Input type="text" formLabel="Contact" placeholder="" {...register('contact')} error={errors.contact} />
       </div>
-      <Button type="submit">Trouver mon équipier</Button>
+      <div className="w-full flex justify-center">
+        <Button type="submit">Trouver mon équipier</Button>
+      </div>
     </form>
   )
 }
