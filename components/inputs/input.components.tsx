@@ -16,6 +16,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({ formLabel
         {...props}
         ref={ref}
       />
+      {/* TODO: refactor error message */}
       {error && <p className="text-xs italic text-red-500 mt-2 lg:text-base">{error.message}</p>}
     </>
   )
