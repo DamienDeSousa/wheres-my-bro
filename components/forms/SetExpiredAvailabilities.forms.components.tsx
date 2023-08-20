@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
 import { ValidatorSchemaType } from '@/services/profile/profile.validators'
@@ -69,7 +70,7 @@ export const SetExpiredAvailabilities = () => {
         <>
           <Alert
             importantText="Vos disponibilités sont périmées !"
-            text="Veuillez en renseigner de nouvelles pour trouver un nouvel BRO"
+            text="Veuillez en renseigner de nouvelles pour trouver un nouveau BRO"
           />
           <ProfileForm onSubmit={onSubmit} defaultValues={defaultValues} />
         </>

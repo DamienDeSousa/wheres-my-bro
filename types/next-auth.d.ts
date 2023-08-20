@@ -16,6 +16,7 @@ declare module 'next-auth/jwt' {
     town?: string
     availabilities?: IAvailabilities
     sport?: string
+    formatedSport?: string
     level?: EBroLevel
     description?: string
     contact?: string
@@ -36,6 +37,7 @@ declare module 'next-auth' {
       town?: string
       availabilities?: IAvailabilities
       sport?: string
+      formatedSport?: string
       level?: EBroLevel
       description?: string
       contact?: string

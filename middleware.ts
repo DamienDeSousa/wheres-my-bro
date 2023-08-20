@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(url)
     }
 
-    if (token.isFirstConnexion) {
+    if (token?.isFirstConnexion) {
       const url = new URL('/welcome', request.url)
       return NextResponse.redirect(url)
     }

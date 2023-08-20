@@ -9,17 +9,18 @@ import { getServerSession } from 'next-auth'
 export default async function Page() {
   const session = await getServerSession(authOptions)
 
-  if (!session?.user?.availabilities) {
+  if (!session?.user) {
     return <Presentation />
   }
 
   switch (true) {
     case session?.user?.isFirstConnexion:
       return <FirstConnexion />
-    case isAvailabilitiesExpired({
-      start: new Date(session.user.availabilities.start),
-      end: new Date(session.user.availabilities.end),
-    }):
+    case session?.user?.availabilities &&
+      isAvailabilitiesExpired({
+        start: new Date(session.user.availabilities.start),
+        end: new Date(session.user.availabilities.end),
+      }):
       return <SetExpiredAvailabilities />
     default:
       // @ts-expect-error Server Component

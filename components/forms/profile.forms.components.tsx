@@ -79,7 +79,13 @@ export const ProfileForm = (params: IProfileForm) => {
         />
       </div>
       <div>
-        <Input type="text" formLabel="Contact" placeholder="" {...register('contact')} error={errors.contact} />
+        <Input
+          type="text"
+          formLabel="Contact (lien de votre profil Facebook, Instragram ou Twitter)"
+          placeholder=""
+          {...register('contact')}
+          error={errors.contact}
+        />
       </div>
       <div className="w-full flex justify-center">
         <Button type="submit">Trouver mon BRO</Button>

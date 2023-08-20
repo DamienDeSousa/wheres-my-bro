@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { IUserAccount, UserAccount } from '@/models/UserAccount.models'
 import { connectDB } from '@/services/db'
 import clientPromise from '@/services/db.auth'
@@ -16,6 +17,7 @@ const setupToken = async (email: string, token: JWT) => {
     token.town = userAccount.town
     token.availabilities = userAccount.availabilities
     token.sport = userAccount.sport
+    token.formatedSport = userAccount.formatedSport
     token.level = userAccount.level
     token.description = userAccount.description
     token.contact = userAccount.contact
@@ -72,6 +74,7 @@ export const authOptions: NextAuthOptions = {
       session.user.town = token.town
       session.user.availabilities = token.availabilities
       session.user.sport = token.sport
+      session.user.formatedSport = token.formatedSport
       session.user.level = token.level
       session.user.description = token.description
       session.user.contact = token.contact

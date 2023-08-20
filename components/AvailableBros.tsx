@@ -26,7 +26,7 @@ export const AvailableBros = async () => {
     town: session.user.town,
     email: { $ne: session.user.email },
     level: session.user.level,
-    sport: session.user.sport,
+    formatedSport: session.user.formatedSport,
   })
 
   if (matchedUserAccounts.length === 0) {

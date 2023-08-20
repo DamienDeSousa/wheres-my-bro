@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 
 import { ValidatorSchemaType } from '@/services/profile/profile.validators'
@@ -44,16 +45,13 @@ export const EditProfile = () => {
       if (response.status !== 200) {
         return
       }
+      const { _id: id, updatedAccount } = await response.json()
       await update({
         ...session,
         user: {
           ...session?.user,
-          town,
-          availabilities,
-          sport,
-          level,
-          description,
-          contact,
+          id,
+          ...updatedAccount,
         },
       })
       startTransition(() => router.push('/'))
