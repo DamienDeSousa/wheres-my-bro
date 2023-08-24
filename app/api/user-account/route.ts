@@ -11,10 +11,10 @@ export async function PATCH(request: Request) {
     return new Response('', { status: 401 })
   }
 
-  const res = (await request.json()) as IUserAccountRequestParams
-  profileValidator.parse(res)
+  const { town, sport, description, contact, ...res } = (await request.json()) as IUserAccountRequestParams
+  profileValidator.parse({ town, sport, description, contact, ...res })
 
-  const formatedSport = res?.sport
+  const formatedSport = sport
     ?.trim()
     .toLowerCase()
     .replaceAll(' ', '')
@@ -24,7 +24,7 @@ export async function PATCH(request: Request) {
 
   const updatedUserAccount = await UserAccount.findOneAndUpdate(
     { _id: session.user.id },
-    { ...res, formatedSport },
+    { ...res, formatedSport, town: town.trim(), description: description.trim(), contact: contact.trim() },
     { new: true },
   )
   return new Response(JSON.stringify(updatedUserAccount), {

@@ -81,7 +81,7 @@ export const ProfileForm = (params: IProfileForm) => {
       <div>
         <Input
           type="text"
-          formLabel="Contact (lien de votre profil Facebook, Instragram ou Twitter)"
+          formLabel="Contact (lien de votre profil Facebook, Instagram ou Twitter)"
           placeholder=""
           {...register('contact')}
           error={errors.contact}
