@@ -14,7 +14,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="fr" className={`${openSans.variable}`}>
       <NextAuthProvider>
-        <body className="min-h-screen w-screen pt-3 lg:flex lg:flex-col lg:items-center lg:gap-32">
+        <body className="min-h-screen pt-3 lg:flex lg:flex-col lg:items-center lg:gap-32">
           <header className="mb-14 px-2 flex flex-col gap-3 md:max-w-3xl lg:max-w-5xl xl:max-w-8xl">
             <h1 className="text-center">Where's my BRO ?</h1>
             <Menu />
