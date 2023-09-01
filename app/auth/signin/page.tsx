@@ -1,8 +1,8 @@
 'use client'
 
 import { Button, EButtonVariation } from '@/components/inputs/button.components'
-import { faFacebook } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faFacebook } from '@fortawesome/free-brands-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { signIn } from 'next-auth/react'
 import Image from 'next/image'
 
@@ -20,10 +20,10 @@ const SignInPage = () => {
         ></Image>
         <span className="block">Sign in with Google</span>
       </Button>
-      <Button onClick={() => signIn('facebook', { callbackUrl: '/' })} variant={EButtonVariation.SIGNIN}>
+      {/* <Button onClick={() => signIn('facebook', { callbackUrl: '/' })} variant={EButtonVariation.SIGNIN}>
         <FontAwesomeIcon icon={faFacebook} className="block w-[24px] h-[24px] text-blue-600" />
         <span className="block">Sign in with Facebook</span>
-      </Button>
+      </Button> */}
     </div>
   )
 }
