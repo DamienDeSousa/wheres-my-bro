@@ -1,12 +1,10 @@
 import { formatDateForDatetimeInput } from '@/services/dates/date.formater'
-import { EBroLevel } from '@/services/profile/profile.types'
 import { profileValidator, ValidatorSchemaType } from '@/services/profile/profile.validators'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DefaultValues, SubmitHandler, useForm } from 'react-hook-form'
 import { Button } from '../inputs/button.components'
 import { Input } from '../inputs/input.components'
 import { Label } from '../inputs/label.components'
-import { Select } from '../inputs/select.components'
 import { Textarea } from '../inputs/textarea.components'
 
 interface IProfileForm {
@@ -62,13 +60,6 @@ export const ProfileForm = (params: IProfileForm) => {
       </div>
       <div>
         <Input type="text" placeholder="Tennis" {...register('sport')} formLabel="Sport" error={errors.sport} />
-      </div>
-      <div>
-        <Select formLabel="Niveau" {...register('level')}>
-          <option value={EBroLevel.BEGINNER}>Débutant</option>
-          <option value={EBroLevel.INTERMEDIATE}>Intermédiaire</option>
-          <option value={EBroLevel.ADVANCE}>Avancé</option>
-        </Select>
       </div>
       <div>
         <Textarea

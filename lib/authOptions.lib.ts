@@ -18,7 +18,6 @@ const setupToken = async (email: string, token: JWT) => {
     token.availabilities = userAccount.availabilities
     token.sport = userAccount.sport
     token.formatedSport = userAccount.formatedSport
-    token.level = userAccount.level
     token.description = userAccount.description
     token.contact = userAccount.contact
     token.name = userAccount.name
@@ -75,7 +74,6 @@ export const authOptions: NextAuthOptions = {
       session.user.availabilities = token.availabilities
       session.user.sport = token.sport
       session.user.formatedSport = token.formatedSport
-      session.user.level = token.level
       session.user.description = token.description
       session.user.contact = token.contact
       session.user.name = token.name

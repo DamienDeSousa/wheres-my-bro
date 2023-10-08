@@ -25,7 +25,6 @@ export const AvailableBros = async () => {
     ],
     town: session.user.town,
     email: { $ne: session.user.email },
-    level: session.user.level,
     formatedSport: session.user.formatedSport,
   })
 
