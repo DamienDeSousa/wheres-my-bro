@@ -25,7 +25,7 @@ export const EditProfile = () => {
     sport: session.user.sport!,
     description: session.user.description!,
     contact: session.user.contact!,
-    availability: session.user.availability,
+    availability: new Date(session.user.availability!).toLocaleDateString('en-CA'),
   }
 
   const onSubmit: SubmitHandler<ValidatorSchemaType> = async data => {

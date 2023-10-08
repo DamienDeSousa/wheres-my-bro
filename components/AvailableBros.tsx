@@ -35,14 +35,6 @@ export const AvailableBros = async () => {
                 <span className="block font-semibold text-[#52616f]">Séance :</span>
                 <span className="block">{bro.description}</span>
               </div>
-              <div className="flex flex-col">
-                <span className="block font-semibold text-[#52616f]">Horaire :</span>
-                <span className="block">
-                  {`de ${new Date(bro.availability!).toLocaleString()} à ${new Date(
-                    bro.availability!,
-                  ).toLocaleString()}`}
-                </span>
-              </div>
               <div className="flex gap-2 items-center">
                 <span className="block font-semibold text-[#52616f]">Contact : </span>
                 <a href={bro.contact} target="_blank" className="block">

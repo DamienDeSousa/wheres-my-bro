@@ -13,6 +13,7 @@ export async function PATCH(request: Request) {
 
   const { town, sport, description, contact, ...res } = (await request.json()) as IUserAccountRequestParams
   profileValidator.parse({ town, sport, description, contact, ...res })
+  console.log('res.availability = ', res.availability)
 
   const formatedSport = sport
     ?.trim()

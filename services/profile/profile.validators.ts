@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import { z } from 'zod'
 import { zodI18nMap } from 'zod-i18n-map'
-import translation from 'zod-i18n-map/locales/fr/zod.json'
+import translation from 'zod-i18n-map/locales/en/zod.json'
 import {
   isFacebookProfileLink,
   isInstagramProfileLink,
@@ -20,7 +20,7 @@ export const profileValidator = z.object({
   town: z.string().min(1),
   sport: z.string().min(1),
   description: z.string().min(1),
-  availability: z.coerce.date(),
+  availability: z.preprocess(val => new Date(String(val)).toISOString(), z.string().datetime()),
   contact: z
     .string()
     .refine(data => isFacebookProfileLink(data) || isInstagramProfileLink(data) || isTwitterProfileLink(data), {
