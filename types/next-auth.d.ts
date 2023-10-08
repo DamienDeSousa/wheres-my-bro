@@ -1,4 +1,3 @@
-import { IAvailabilities } from '@/models/UserAccount.models'
 import 'next-auth'
 import 'next-auth/jwt'
 
@@ -13,7 +12,7 @@ declare module 'next-auth/jwt' {
     image: string
     isFirstConnexion?: boolean
     town?: string
-    availabilities?: IAvailabilities
+    availability?: Date
     sport?: string
     formatedSport?: string
     description?: string
@@ -33,7 +32,7 @@ declare module 'next-auth' {
       image: string
       isFirstConnexion?: boolean
       town?: string
-      availabilities?: IAvailabilities
+      availability?: Date
       sport?: string
       formatedSport?: string
       description?: string

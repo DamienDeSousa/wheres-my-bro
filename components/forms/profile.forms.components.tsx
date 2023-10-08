@@ -1,10 +1,9 @@
-import { formatDateForDatetimeInput } from '@/services/dates/date.formater'
+import { formatDateForDateInput } from '@/services/dates/date.formater'
 import { profileValidator, ValidatorSchemaType } from '@/services/profile/profile.validators'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DefaultValues, SubmitHandler, useForm } from 'react-hook-form'
 import { Button } from '../inputs/button.components'
 import { Input } from '../inputs/input.components'
-import { Label } from '../inputs/label.components'
 import { Textarea } from '../inputs/textarea.components'
 
 interface IProfileForm {
@@ -18,8 +17,8 @@ export const ProfileForm = (params: IProfileForm) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
     watch,
+    formState: { errors },
   } = useForm<ValidatorSchemaType>({
     resolver: zodResolver(profileValidator),
     mode: 'onBlur',
@@ -27,10 +26,11 @@ export const ProfileForm = (params: IProfileForm) => {
     defaultValues: defaultValues,
   })
 
-  const startDate = watch('availabilities.start')
-
-  const formatedStartDate = formatDateForDatetimeInput(new Date())
-  const formatedEndDate = formatDateForDatetimeInput(new Date(startDate) || new Date())
+  const formatedStartDate = formatDateForDateInput(new Date())
+  const givenAvailability = new Date(watch('availability'))
+  console.log('watch(availability) = ', watch('availability'))
+  console.log('givenAvailability = ', givenAvailability)
+  console.log('formatDateForDateInput(givenAvailability) = ', formatDateForDateInput(givenAvailability))
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full">
@@ -38,25 +38,14 @@ export const ProfileForm = (params: IProfileForm) => {
         <Input type="text" formLabel="Ville" {...register('town')} placeholder="Paris" error={errors.town} />
       </div>
       <div>
-        <Label labelText="Créneau de disponibilité" />
-        <div className="flex gap-1">
-          <div className="flex flex-col w-1/2">
-            <Input
-              type="datetime-local"
-              min={formatedStartDate}
-              {...register('availabilities.start')}
-              error={errors.availabilities?.start}
-            />
-          </div>
-          <div className="flex flex-col w-1/2">
-            <Input
-              type="datetime-local"
-              min={formatedEndDate}
-              {...register('availabilities.end')}
-              error={errors.availabilities?.end}
-            />
-          </div>
-        </div>
+        <Input
+          type="date"
+          min={formatedStartDate}
+          {...register('availability')}
+          value={formatDateForDateInput(givenAvailability)}
+          formLabel="Disponibilité"
+          error={errors.availability}
+        />
       </div>
       <div>
         <Input type="text" placeholder="Tennis" {...register('sport')} formLabel="Sport" error={errors.sport} />

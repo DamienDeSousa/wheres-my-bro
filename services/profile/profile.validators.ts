@@ -1,4 +1,3 @@
-import { format } from 'date-fns'
 import i18next from 'i18next'
 import { z } from 'zod'
 import { zodI18nMap } from 'zod-i18n-map'
@@ -21,18 +20,7 @@ export const profileValidator = z.object({
   town: z.string().min(1),
   sport: z.string().min(1),
   description: z.string().min(1),
-  availabilities: z
-    .object({
-      start: z.coerce
-        .date()
-        .min(new Date())
-        .transform(date => format(date, "yyyy-MM-dd'T'HH:mm:ss")),
-      end: z.coerce.date().transform(date => format(date, "yyyy-MM-dd'T'HH:mm")),
-    })
-    .refine(data => new Date(data.start) < new Date(data.end), {
-      path: ['end'],
-      message: 'La date doit être ultérieure ou égale à la date de départ',
-    }),
+  availability: z.coerce.date(),
   contact: z
     .string()
     .refine(data => isFacebookProfileLink(data) || isInstagramProfileLink(data) || isTwitterProfileLink(data), {

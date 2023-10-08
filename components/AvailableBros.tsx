@@ -8,21 +8,12 @@ import { Card } from './cards/card.components'
 export const AvailableBros = async () => {
   const session = await getServerSession(authOptions)
 
-  if (!session?.user?.availabilities) {
+  if (!session?.user?.availability) {
     return null
   }
 
   const matchedUserAccounts: IUserAccount[] = await UserAccount.find({
-    $or: [
-      {
-        'availabilities.start': { $lte: session.user.availabilities.start },
-        'availabilities.end': { $gte: session.user.availabilities.end },
-      },
-      {
-        'availabilities.start': { $gte: session.user.availabilities.start },
-        'availabilities.end': { $lte: session.user.availabilities.end },
-      },
-    ],
+    availability: session.user.availability,
     town: session.user.town,
     email: { $ne: session.user.email },
     formatedSport: session.user.formatedSport,
@@ -47,8 +38,8 @@ export const AvailableBros = async () => {
               <div className="flex flex-col">
                 <span className="block font-semibold text-[#52616f]">Horaire :</span>
                 <span className="block">
-                  {`de ${new Date(bro.availabilities!.start).toLocaleString()} à ${new Date(
-                    bro.availabilities!.end,
+                  {`de ${new Date(bro.availability!).toLocaleString()} à ${new Date(
+                    bro.availability!,
                   ).toLocaleString()}`}
                 </span>
               </div>

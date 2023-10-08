@@ -15,7 +15,7 @@ const setupToken = async (email: string, token: JWT) => {
     token.id = userAccount._id.toString()
     token.isFirstConnexion = userAccount.isFirstConnexion
     token.town = userAccount.town
-    token.availabilities = userAccount.availabilities
+    token.availability = userAccount.availability
     token.sport = userAccount.sport
     token.formatedSport = userAccount.formatedSport
     token.description = userAccount.description
@@ -71,7 +71,7 @@ export const authOptions: NextAuthOptions = {
       session.user.id = token.id
       session.user.isFirstConnexion = token.isFirstConnexion
       session.user.town = token.town
-      session.user.availabilities = token.availabilities
+      session.user.availability = token.availability
       session.user.sport = token.sport
       session.user.formatedSport = token.formatedSport
       session.user.description = token.description

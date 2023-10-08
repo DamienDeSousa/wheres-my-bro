@@ -1,8 +1,6 @@
-import { IAvailabilities } from '@/models/UserAccount.models'
-
 export interface IUserAccountRequestParams {
   town: string
-  availabilities: IAvailabilities
+  availability: Date
   isFirstConnexion: boolean
   sport: string
   description: string
